@@ -1,0 +1,16 @@
+{
+  "autoload": {
+    "classmap": [
+      "ccb-gravity.php",
+      "includes/"
+    ],
+    "files": [
+      "vendor/webdevstudios/wds-shortcodes/wds-shortcodes.php"
+    ]
+  },
+  "require": {
+    "php": ">=5.3",
+    "webdevstudios/wds-shortcodes": "^v1.0.4"
+  },
+  "minimum-stability": "dev"
+}

@@ -1,0 +1,23 @@
+.gf_entries .row-actions {
+    left: 0em !important;
+}
+.sync-ccb {
+    color:indianred;
+    text-decoration: underline !important;
+    font-weight: 900 !important;
+}
+.ccb-report-btn {
+    color:darkred;
+    font-style: oblique;
+    text-decoration: underline !important;
+    font-weight: 900 !important;
+}
+.sync-ccb-complete {
+    color:forestgreen;
+    font-style: oblique;
+    text-decoration: underline !important;
+    font-weight: 900 !important;
+}
+.sync-ccb-complete:hover {
+    cursor: default;
+}
