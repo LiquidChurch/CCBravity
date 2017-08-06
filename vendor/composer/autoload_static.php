@@ -14,7 +14,7 @@ class ComposerStaticInit4131e8113a43a2558c0c90266e75f9ce
 
     public static $classMap = array (
         'CCB_GRAVITY_Abstract' => __DIR__ . '/../..' . '/includes/class-ccb-abstract.php',
-        'CCB_GRAVITY_Api_Config' => __DIR__ . '/../..' . '/includes/pages/class-api-config.php',
+        'CCB_GRAVITY_Base_Option_Page' => __DIR__ . '/../..' . '/includes/pages/class-base-option-page.php',
         'CCB_GRAVITY_Functionality' => __DIR__ . '/../..' . '/ccb-gravity.php',
         'CCB_GRAVITY_Template_Loader' => __DIR__ . '/../..' . '/includes/class-template-loader.php',
         'CCB_GRAVITY_action_handler' => __DIR__ . '/../..' . '/includes/action/class-ccb-action.php',
@@ -36,6 +36,7 @@ class ComposerStaticInit4131e8113a43a2558c0c90266e75f9ce
         'CCB_GRAVITY_form_mods' => __DIR__ . '/../..' . '/includes/gravity-mods/class-form-mods.php',
         'CCB_GRAVITY_form_render' => __DIR__ . '/../..' . '/includes/gravity-mods/class-form-render.php',
         'CCB_GRAVITY_manage_session' => __DIR__ . '/../..' . '/includes/session/class-manage-session.php',
+        'CCB_GRAVITY_option_settings' => __DIR__ . '/../..' . '/includes/pages/class-ccb-gravity-option-settings.php',
         'CCB_Shortcodes' => __DIR__ . '/../..' . '/includes/shortcode/class-shortcodes.php',
         'CCB_Shortcodes_Resources' => __DIR__ . '/../..' . '/includes/shortcode/class-shortcodes-resources.php',
         'CCB_Shortcodes_Resources_Admin' => __DIR__ . '/../..' . '/includes/shortcode/class-shortcodes-resources-admin.php',
@@ -43,7 +44,7 @@ class ComposerStaticInit4131e8113a43a2558c0c90266e75f9ce
         'GFRepeater' => __DIR__ . '/../..' . '/includes/repeater-add-on-for-gravity-forms/repeater.php',
         'GF_Field_Repeater' => __DIR__ . '/../..' . '/includes/repeater-add-on-for-gravity-forms/class-gf-field-repeater.php',
         'GF_Field_Repeater_End' => __DIR__ . '/../..' . '/includes/repeater-add-on-for-gravity-forms/class-gf-field-repeater-end.php',
-        'Shortcode_Button_105' => __DIR__ . '/..' . '/jtsternberg/shortcode-button/shortcode-button.php',
+        'Shortcode_Button_107' => __DIR__ . '/..' . '/jtsternberg/shortcode-button/shortcode-button.php',
         'TGMPA_Bulk_Installer' => __DIR__ . '/..' . '/webdevstudios/wds-shortcodes/vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php',
         'TGMPA_Bulk_Installer_Skin' => __DIR__ . '/..' . '/webdevstudios/wds-shortcodes/vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php',
         'TGMPA_List_Table' => __DIR__ . '/..' . '/webdevstudios/wds-shortcodes/vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php',

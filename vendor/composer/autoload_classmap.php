@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'CCB_GRAVITY_Abstract' => $baseDir . '/includes/class-ccb-abstract.php',
-    'CCB_GRAVITY_Api_Config' => $baseDir . '/includes/pages/class-api-config.php',
+    'CCB_GRAVITY_Base_Option_Page' => $baseDir . '/includes/pages/class-base-option-page.php',
     'CCB_GRAVITY_Functionality' => $baseDir . '/ccb-gravity.php',
     'CCB_GRAVITY_Template_Loader' => $baseDir . '/includes/class-template-loader.php',
     'CCB_GRAVITY_action_handler' => $baseDir . '/includes/action/class-ccb-action.php',
@@ -29,6 +29,7 @@ return array(
     'CCB_GRAVITY_form_mods' => $baseDir . '/includes/gravity-mods/class-form-mods.php',
     'CCB_GRAVITY_form_render' => $baseDir . '/includes/gravity-mods/class-form-render.php',
     'CCB_GRAVITY_manage_session' => $baseDir . '/includes/session/class-manage-session.php',
+    'CCB_GRAVITY_option_settings' => $baseDir . '/includes/pages/class-ccb-gravity-option-settings.php',
     'CCB_Shortcodes' => $baseDir . '/includes/shortcode/class-shortcodes.php',
     'CCB_Shortcodes_Resources' => $baseDir . '/includes/shortcode/class-shortcodes-resources.php',
     'CCB_Shortcodes_Resources_Admin' => $baseDir . '/includes/shortcode/class-shortcodes-resources-admin.php',
@@ -36,7 +37,7 @@ return array(
     'GFRepeater' => $baseDir . '/includes/repeater-add-on-for-gravity-forms/repeater.php',
     'GF_Field_Repeater' => $baseDir . '/includes/repeater-add-on-for-gravity-forms/class-gf-field-repeater.php',
     'GF_Field_Repeater_End' => $baseDir . '/includes/repeater-add-on-for-gravity-forms/class-gf-field-repeater-end.php',
-    'Shortcode_Button_105' => $vendorDir . '/jtsternberg/shortcode-button/shortcode-button.php',
+    'Shortcode_Button_107' => $vendorDir . '/jtsternberg/shortcode-button/shortcode-button.php',
     'TGMPA_Bulk_Installer' => $vendorDir . '/webdevstudios/wds-shortcodes/vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php',
     'TGMPA_Bulk_Installer_Skin' => $vendorDir . '/webdevstudios/wds-shortcodes/vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php',
     'TGMPA_List_Table' => $vendorDir . '/webdevstudios/wds-shortcodes/vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php',
