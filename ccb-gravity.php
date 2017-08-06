@@ -4,14 +4,14 @@
  * Plugin URI:  http://www.liquidchurch.com/
  * Description: CCB API and Gravity Form Integration
  * Version:     1.0.0
- * Author:      Suraj Gupta
- * Author URI:  http://ScripterZ.in
+ * Author:      Suraj Gupta, Dave Mackey, Liquidchurch
+ * Author URI:  http://www.liquidchurch.com/
  * Donate link: http://www.liquidchurch.com/
  * License:     GPLv2
  * Text Domain: ccb-gravity
  * Domain Path: /languages
  *
- * @link http://www.liquidchurch.com/
+ * @link    http://www.liquidchurch.com/
  *
  * @package CCB Gravity
  * @version 1.0.0
@@ -55,7 +55,7 @@ class CCB_GRAVITY_Functionality
      * @var  string
      * @since  1.0.0
      */
-    const VERSION = '1.0.0';
+    const VERSION                       = '1.0.0';
     const CCB_COMMUNITY_GROUP_LEADER_ID = 35917;
     /**
      * Path of plugin directory
@@ -70,7 +70,7 @@ class CCB_GRAVITY_Functionality
      * @var CCB_GRAVITY_Functionality
      * @since  1.0.0
      */
-    protected static $single_instance = null;
+    protected static $single_instance = NULL;
     /**
      * URL of plugin directory
      *
@@ -102,9 +102,18 @@ class CCB_GRAVITY_Functionality
     protected function __construct()
     {
         $this->basename = plugin_basename(__FILE__);
-        $this->url = plugin_dir_url(__FILE__);
-        self::$path = plugin_dir_path(__FILE__);
+        $this->url      = plugin_dir_url(__FILE__);
+        self::$path     = plugin_dir_path(__FILE__);
     }
+
+    /**
+     * @var array
+     * @since 0.1.0
+     */
+    protected $enabled_ccb_services = [
+        'individual_profile_from_login_password' => 'User login form',
+        'add_individual_to_event'                => 'Individual Event registration form',
+    ];
 
     /**
      * Creates or returns an instance of this class.
@@ -114,7 +123,8 @@ class CCB_GRAVITY_Functionality
      */
     public static function get_instance()
     {
-        if (null === self::$single_instance) {
+        if (NULL === self::$single_instance)
+        {
             self::$single_instance = new self();
         }
 
@@ -125,29 +135,36 @@ class CCB_GRAVITY_Functionality
      * Include a file from the includes directory
      *
      * @since  1.0.0
+     *
      * @param  string $filename Name of the file to be included.
+     *
      * @return bool   Result of include call.
      */
     public static function include_file($filename)
     {
         $file = self::dir($filename . '.php');
-        if (file_exists($file)) {
+        if (file_exists($file))
+        {
             return include_once($file);
         }
-        return false;
+
+        return FALSE;
     } // END OF PLUGIN CLASSES FUNCTION
 
     /**
      * This plugin's directory
      *
      * @since  1.0.0
+     *
      * @param  string $path (optional) appended path.
+     *
      * @return string       Directory and path
      */
     public static function dir($path = '')
     {
         static $dir;
         $dir = $dir ? $dir : trailingslashit(dirname(__FILE__));
+
         return $dir . $path;
     }
 
@@ -159,7 +176,8 @@ class CCB_GRAVITY_Functionality
      */
     public function hooks()
     {
-        if (class_exists("GFForms")) {
+        if (class_exists("GFForms"))
+        {
 
             new GFRepeater();
             GF_Fields::register(new GF_Field_Repeater());
@@ -177,8 +195,6 @@ class CCB_GRAVITY_Functionality
      */
     public function _activate()
     {
-        CCB_GRAVITY_Api_Config::import_default_settings();
-
         // Make sure any rewrite functionality has been loaded.
         flush_rewrite_rules();
     }
@@ -202,8 +218,9 @@ class CCB_GRAVITY_Functionality
      */
     public function init()
     {
-        if ($this->check_requirements()) {
-            load_plugin_textdomain('ccb-gravity', false, dirname($this->basename) . '/languages/');
+        if ($this->check_requirements())
+        {
+            load_plugin_textdomain('ccb-gravity', FALSE, dirname($this->basename) . '/languages/');
 
             add_action('admin_menu', array($this, 'add_admin_menu_page'));
 
@@ -222,7 +239,8 @@ class CCB_GRAVITY_Functionality
      */
     public function check_requirements()
     {
-        if (!$this->meets_requirements()) {
+        if ( ! $this->meets_requirements())
+        {
 
             // Add a dashboard notice.
             add_action('all_admin_notices', array($this, 'requirements_not_met_notice'));
@@ -230,10 +248,10 @@ class CCB_GRAVITY_Functionality
             // Deactivate our plugin.
             add_action('admin_init', array($this, 'deactivate_me'));
 
-            return false;
+            return FALSE;
         }
 
-        return true;
+        return TRUE;
     }
 
     /**
@@ -260,38 +278,43 @@ class CCB_GRAVITY_Functionality
     {
         $this->add_dev_classes();
 
-        $this->shortcode = new CCB_Shortcodes($this);
-        $this->session = new CCB_GRAVITY_manage_session($this);
-        $this->action = new CCB_GRAVITY_action_handler($this);
-        $this->action_ajax = new CCB_GRAVITY_ajax_handler($this);
+        $this->shortcode        = new CCB_Shortcodes($this);
+        $this->session          = new CCB_GRAVITY_manage_session($this);
+        $this->action           = new CCB_GRAVITY_action_handler($this);
+        $this->action_ajax      = new CCB_GRAVITY_ajax_handler($this);
         $this->gravity_api_cron = new CCB_GRAVITY_cron_handler($this);
 
         // Only create the full metabox object if in the admin.
-        if (is_admin()) {
-            $this->config_page = new CCB_GRAVITY_Api_Config($this);
+        if (is_admin())
+        {
+            $this->config_page  = CCB_GRAVITY_option_settings::get_instance();
             $this->gravity_mods = new CCB_GRAVITY_form_mods($this);
-        } else {
-            $this->gravity_render = new CCB_GRAVITY_form_render($this);
-            $this->gravity_api_login = new CCB_GRAVITY_api_login($this);
+        } else
+        {
+            $this->gravity_render                = new CCB_GRAVITY_form_render($this);
+            $this->gravity_api_login             = new CCB_GRAVITY_api_login($this);
             $this->gravity_api_individual_groups = new CCB_GRAVITY_api_individual_groups($this);
         }
 
-        $this->gravity_api_sync_ccb = new CCB_GRAVITY_api_sync_ccb($this);
-        $this->gravity_api_create_individual = new CCB_GRAVITY_api_create_individual($this);
-        $this->gravity_api_create_group = new CCB_GRAVITY_api_create_group($this);
+        $this->gravity_api_sync_ccb                = new CCB_GRAVITY_api_sync_ccb($this);
+        $this->gravity_api_create_individual       = new CCB_GRAVITY_api_create_individual($this);
+        $this->gravity_api_create_group            = new CCB_GRAVITY_api_create_group($this);
         $this->gravity_api_add_individual_to_group = new CCB_GRAVITY_api_add_individual_to_group($this);
-        $this->gravity_api_add_to_event = new CCB_GRAVITY_api_add_to_event($this);
-        $this->gravity_api_group_participants = new CCB_GRAVITY_api_group_participants($this);
-        $this->gravity_api_get_individual_profile = new CCB_GRAVITY_api_get_individual_profile($this);
-        $this->gravity_api_get_event_profile = new CCB_GRAVITY_api_event_profile($this);
-        $this->gravity_api_get_attendance_profile = new CCB_GRAVITY_api_attendance_profile($this);
+        $this->gravity_api_add_to_event            = new CCB_GRAVITY_api_add_to_event($this);
+        $this->gravity_api_group_participants      = new CCB_GRAVITY_api_group_participants($this);
+        $this->gravity_api_get_individual_profile  = new CCB_GRAVITY_api_get_individual_profile($this);
+        $this->gravity_api_get_event_profile       = new CCB_GRAVITY_api_event_profile($this);
+        $this->gravity_api_get_attendance_profile  = new CCB_GRAVITY_api_attendance_profile($this);
     }
 
     public function add_dev_classes()
     {
-        if (defined('CCB_ENV') && CCB_ENV == 'development') {
+        if (defined('CCB_ENV') && CCB_ENV == 'development')
+        {
             if (file_exists(__DIR__ . '/dev/WP_Logging.php'))
+            {
                 include __DIR__ . '/dev/WP_Logging.php';
+            }
         }
         include __DIR__ . '/dev/Logging_Mods.php';
     }
@@ -299,9 +322,10 @@ class CCB_GRAVITY_Functionality
     protected function enque_script()
     {
         $admin_page = rgget('page');
-        $min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+        $min        = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
-        if (in_array($admin_page, array('gf_edit_forms', 'gf_entries'))) {
+        if (in_array($admin_page, array('gf_edit_forms', 'gf_entries')))
+        {
             wp_enqueue_script(
                 'ccb-blockui',
                 CCB_GRAVITY_Functionality::url("assets/node_modules/block-ui/jquery.blockUI{$min}.js"),
@@ -315,7 +339,8 @@ class CCB_GRAVITY_Functionality
                 array('jquery'),
                 CCB_GRAVITY_Functionality::VERSION
             );
-        } elseif(in_array($admin_page, array('ccb_report'))) {
+        } else if (in_array($admin_page, array('ccb_report')))
+        {
 
             wp_enqueue_script(
                 'jquery-datatable',
@@ -337,22 +362,26 @@ class CCB_GRAVITY_Functionality
      * This plugin's url
      *
      * @since  1.0.0
+     *
      * @param  string $path (optional) appended path.
+     *
      * @return string       URL and path
      */
     public static function url($path = '')
     {
         static $url;
         $url = $url ? $url : trailingslashit(plugin_dir_url(__FILE__));
+
         return $url . $path;
     }
 
     protected function enque_style()
     {
         $admin_page = rgget('page');
-        $min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+        $min        = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
-        if (in_array($admin_page, array('gf_edit_forms', 'gf_entries'))) {
+        if (in_array($admin_page, array('gf_edit_forms', 'gf_entries')))
+        {
 
             wp_enqueue_style(
                 'ccb-gravity-admin-css',
@@ -361,7 +390,8 @@ class CCB_GRAVITY_Functionality
                 CCB_GRAVITY_Functionality::VERSION
             );
 
-        } elseif(in_array($admin_page, array('ccb_report'))) {
+        } else if (in_array($admin_page, array('ccb_report')))
+        {
 
             wp_enqueue_style(
                 'jquery-datatable-css',
@@ -417,13 +447,16 @@ class CCB_GRAVITY_Functionality
      * Magic getter for our object.
      *
      * @since  1.0.0
+     *
      * @param string $field Field to get.
+     *
      * @throws Exception Throws an exception if the field is invalid.
      * @return mixed
      */
     public function __get($field)
     {
-        switch ($field) {
+        switch ($field)
+        {
             case 'version':
                 return self::VERSION;
             case 'basename':

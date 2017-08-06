@@ -4,21 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c448f73fb295b880d2a86ca3c98fb3a5",
     "content-hash": "72b07f33b4ca2b2a0b39a6f6c7075c28",
     "packages": [
         {
             "name": "jtsternberg/shortcode-button",
-            "version": "v1.0.5",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jtsternberg/Shortcode_Button.git",
-                "reference": "8234bbc8f7410c788b222f6ec64f6b8152d82d46"
+                "reference": "50a9cc8cfdeb5772570578c1f19ab408e0702b9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jtsternberg/Shortcode_Button/zipball/8234bbc8f7410c788b222f6ec64f6b8152d82d46",
-                "reference": "8234bbc8f7410c788b222f6ec64f6b8152d82d46",
+                "url": "https://api.github.com/repos/jtsternberg/Shortcode_Button/zipball/50a9cc8cfdeb5772570578c1f19ab408e0702b9c",
+                "reference": "50a9cc8cfdeb5772570578c1f19ab408e0702b9c",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +48,7 @@
                 "shortcodes",
                 "wordpress"
             ],
-            "time": "2016-09-13 00:42:11"
+            "time": "2017-06-07T15:59:21+00:00"
         },
         {
             "name": "tgmpa/tgm-plugin-activation",
@@ -104,24 +103,24 @@
                 "theme",
                 "wordpress"
             ],
-            "time": "2015-07-16 08:59:11"
+            "time": "2015-07-16T08:59:11+00:00"
         },
         {
             "name": "webdevstudios/wds-shortcodes",
-            "version": "v1.0.6",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WebDevStudios/WDS-Shortcodes.git",
-                "reference": "610185109847e0403615fd310338077e46342b22"
+                "reference": "69b52b65d1120790e15303fff61f9749ac151e7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WebDevStudios/WDS-Shortcodes/zipball/610185109847e0403615fd310338077e46342b22",
-                "reference": "610185109847e0403615fd310338077e46342b22",
+                "url": "https://api.github.com/repos/WebDevStudios/WDS-Shortcodes/zipball/69b52b65d1120790e15303fff61f9749ac151e7f",
+                "reference": "69b52b65d1120790e15303fff61f9749ac151e7f",
                 "shasum": ""
             },
             "require": {
-                "jtsternberg/shortcode-button": "^v1.0.5",
+                "jtsternberg/shortcode-button": "^v1.0.7",
                 "php": ">5.2",
                 "tgmpa/tgm-plugin-activation": "2.5.2"
             },
@@ -154,7 +153,7 @@
                 "wordpress",
                 "wp-api"
             ],
-            "time": "2016-09-13 15:49:16"
+            "time": "2017-06-07T16:02:24+00:00"
         }
     ],
     "packages-dev": [],
