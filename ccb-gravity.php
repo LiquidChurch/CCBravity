@@ -94,6 +94,22 @@ class CCB_GRAVITY_Functionality
     protected $config_page;
     protected $gravity_mods;
 
+
+    /**
+     * @var array
+     * @since 0.1.0
+     */
+    protected $gform_enabled_ccb_services = [
+        'individual_profile_from_login_password' => 'User login form',
+        'add_individual_to_event'                => 'Individual Event registration form',
+    ];
+
+    /**
+     * @var array
+     * @since 0.1.0
+     */
+    protected $gform_api_field_map = [];
+
     /**
      * Sets up our plugin
      *
@@ -101,19 +117,14 @@ class CCB_GRAVITY_Functionality
      */
     protected function __construct()
     {
-        $this->basename = plugin_basename(__FILE__);
-        $this->url      = plugin_dir_url(__FILE__);
-        self::$path     = plugin_dir_path(__FILE__);
+        $this->basename            = plugin_basename(__FILE__);
+        $this->url                 = plugin_dir_url(__FILE__);
+        self::$path                = plugin_dir_path(__FILE__);
+        $this->gform_api_field_map = [
+            'individual_profile_from_login_password' => CCB_GRAVITY_api_login::$link_api_fields,
+            'add_individual_to_event'                => CCB_GRAVITY_api_add_to_event::$link_api_fields,
+        ];
     }
-
-    /**
-     * @var array
-     * @since 0.1.0
-     */
-    protected $enabled_ccb_services = [
-        'individual_profile_from_login_password' => 'User login form',
-        'add_individual_to_event'                => 'Individual Event registration form',
-    ];
 
     /**
      * Creates or returns an instance of this class.
@@ -462,6 +473,9 @@ class CCB_GRAVITY_Functionality
             case 'basename':
             case 'url':
             case 'path':
+            case 'gform_enabled_ccb_services':
+            case 'gform_api_field_map':
+                return $this->{$field};
             default:
                 throw new Exception('Invalid ' . __CLASS__ . ' property: ' . $field);
         }

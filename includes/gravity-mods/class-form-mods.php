@@ -3,7 +3,7 @@
 /**
  * CCB GRAVITY form mods
  *
- * @since 1.0.0
+ * @since   1.0.0
  * @package CCB Gravity Functionality
  */
 class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
@@ -52,31 +52,37 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
     function ccb_report_page()
     {
         $form_id = rgget('form_id');
-        if(!empty($form_id)) {
+        if ( ! empty($form_id))
+        {
 
-            $args = array();
-            $form = GFAPI::get_form($form_id);
-            $entries = GFAPI::get_entries( $form_id );
+            $args    = array();
+            $form    = GFAPI::get_form($form_id);
+            $entries = GFAPI::get_entries($form_id);
 
             $args = array(
-                'form' => $form,
+                'form'    => $form,
                 'entries' => $entries
             );
 
-            if ($form['ccb_api_settings'] == 'add_individual_to_event') {
+            if ($form['ccb_api_settings'] == 'add_individual_to_event')
+            {
                 return CCB_GRAVITY_Template_Loader::output_template('report/show', $args);
             }
 
-        } else {
+        } else
+        {
 
-            $args = array();
-            $forms = GFAPI::get_forms();
-            $filter_forms = array_filter($forms, function ($v) {
-                if ($v['ccb_api_settings'] == 'add_individual_to_event') {
-                    return true;
+            $args          = array();
+            $forms         = GFAPI::get_forms();
+            $filter_forms  = array_filter($forms, function ($v)
+            {
+                if ($v['ccb_api_settings'] == 'add_individual_to_event')
+                {
+                    return TRUE;
                 }
             });
             $args['forms'] = $filter_forms;
+
             return CCB_GRAVITY_Template_Loader::output_template('report/index', $args);
         }
     }
@@ -85,7 +91,8 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
     {
         $form_details = GFFormsModel::get_form_meta($form_id);
 
-        if (isset($form_details['ccb_api_settings']) && ($form_details['ccb_api_settings'] == 'add_individual_to_event')) {
+        if (isset($form_details['ccb_api_settings']) && ($form_details['ccb_api_settings'] == 'add_individual_to_event'))
+        {
 
             $actions['ccb_report'] = "| <a href='" . admin_url() . "admin.php?page=ccb_report&form_id=" . $form_id . "' class='ccb-report-btn'>Report</a> ";
 
@@ -99,14 +106,17 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
     {
         $form_details = GFFormsModel::get_form_meta($form_id);
 
-        if (isset($form_details['ccb_api_settings']) && ($form_details['ccb_api_settings'] == 'add_individual_to_event')) {
+        if (isset($form_details['ccb_api_settings']) && ($form_details['ccb_api_settings'] == 'add_individual_to_event'))
+        {
 
             $entry_meta = gform_get_meta($entry['id'], 'api_data');
 
-            if (!isset($entry_meta['api_sync']) || ($entry_meta['api_sync'] == false)) {
+            if ( ! isset($entry_meta['api_sync']) || ($entry_meta['api_sync'] == FALSE))
+            {
 
                 echo "| <a href='javascript:void(0);' data-form-id='" . $form_id . "' data-entry-id='" . $entry['id'] . "' class='sync-ccb'>CCB Sync</a>";
-            } else {
+            } else
+            {
 
                 echo "| <a href='javascript:void(0);' data-form-id='" . $form_id . "' data-entry-id='" . $entry['id'] . "' class='sync-ccb-complete'>CCB Sync Done</a> ";
             }
@@ -117,7 +127,8 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
     {
 
         //create settings on position 25 (right after Field Label)
-        if ($position == 25) {
+        if ($position == 25)
+        {
             ?>
             <li class="ccb_field_settings field_setting">
                 <label for="field_admin_label">
@@ -130,20 +141,20 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
                 ?>
             </li>
             <li class="ccb_field_settings field_setting">
-                <label for="field_admin_label">
-                    <?php esc_html_e('Enable CCB Report', 'ccb-gravity'); ?>
-                    <?php gform_tooltip('form_ccb_field_report') ?>
-                </label>
-
                 <?php
                 $this->gen_ccb_field_report_tag($form_id);
                 ?>
+                <label for="field_admin_label" class="inline">
+                    <?php esc_html_e('Enable CCB Report', 'ccb-gravity'); ?>
+                    <?php gform_tooltip('form_ccb_field_report') ?>
+                </label>
             </li>
             <?php
         }
     }
 
-    private function gen_ccb_field_report_tag($form_id) {
+    private function gen_ccb_field_report_tag($form_id)
+    {
         echo '<input type="checkbox" id="ccb_field_report_' . $form_id . '" class="ccb_field_report" />';
 //        echo '<select id="ccb_field_report_' . $form_id . '" class="ccb_field_report">';
 //        echo '<option value="0"></option>';
@@ -154,12 +165,20 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
 
     private function gen_ccb_select_tag($form_id)
     {
-        $ccb_field_values = CCB_GRAVITY_Api_Config::get_config_option(CCB_GRAVITY_Api_Config::$ccb_field_config_option);
+        $ccb_service      = $this->plugin->gform_enabled_ccb_services;
+        $ccb_field_values = $this->plugin->gform_api_field_map;
 
         echo '<select id="ccb_field_value_' . $form_id . '" class="ccb_field_value" multiple="multiple">';
-        if (!empty($ccb_field_values)) {
-            foreach ($ccb_field_values as $i => $item) {
-                echo '<option>' . $item . '</option>';
+        if ( ! empty($ccb_field_values))
+        {
+            foreach ($ccb_field_values as $i => $items)
+            {
+                echo '<optgroup label="' . $ccb_service[$i] . '">';
+                foreach ($items as $index => $item)
+                {
+                    echo '<option value="' . $i . '.' . $index . '">' . $index . '</option>';
+                }
+                echo '</optgroup>';
             }
         }
         echo '</select>';
@@ -219,8 +238,9 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
 
     public function add_related_ccb_field_tooltips($tooltips)
     {
-        $tooltips['form_ccb_field_value'] = "<h6>CCB Field</h6>" . _('Please enter and select the CCB Field');
+        $tooltips['form_ccb_field_value']  = "<h6>CCB Field</h6>" . _('Please enter and select the CCB Field');
         $tooltips['form_ccb_field_report'] = "<h6>Add to Report</h6>" . _('Select the checkbox if you want to include this field into the report');
+
         return $tooltips;
     }
 
@@ -240,17 +260,19 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
 
         wp_localize_script('ccb-garvity-mods', 'CCB',
             array(
-                'page' => 'form_settings',
+                'page'             => 'form_settings',
                 'ccb_api_settings' => rgar($form, 'ccb_api_settings')
             )
         );
 
-        $ccb_service_values = CCB_GRAVITY_Api_Config::get_config_option(CCB_GRAVITY_Api_Config::$ccb_service_config_option);
+        $ccb_service_values = $this->plugin->gform_enabled_ccb_services;
 
         $settings['Form Basics']['ccb_api_settings'] = '<tr><th><label for="ccb_api_settings">CCB API Service</label></th>' .
-            '<td><select id="ccb_service_value" class="ccb_service_value" name="ccb_api_settings">';
-        if (!empty($ccb_service_values)) {
-            foreach ($ccb_service_values as $i => $item) {
+                                                       '<td><select id="ccb_service_value" class="ccb_service_value" name="ccb_api_settings">';
+        if ( ! empty($ccb_service_values))
+        {
+            foreach ($ccb_service_values as $i => $item)
+            {
                 $settings['Form Basics']['ccb_api_settings'] .= '<option>' . $item . '</option>';
             }
         }
@@ -262,6 +284,7 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
     public function save_ccb_setting($form)
     {
         $form['ccb_api_settings'] = rgpost('ccb_api_settings');
+
         return $form;
     }
 
