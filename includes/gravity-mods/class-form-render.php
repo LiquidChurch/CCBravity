@@ -58,7 +58,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
      */
     public function hooks()
     {
-        $this->enqueu_js();
+        $this->enqueue_js();
 
         add_action('gform_pre_submission', array($this, 'gform_before_submission'), 5, 1);
         add_action('gform_after_submission', array($this, 'gform_after_submission'), 5, 2);
@@ -75,7 +75,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
     /**
      * enqueue js for render pages
      */
-    public function enqueu_js()
+    public function enqueue_js()
     {
         $min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 

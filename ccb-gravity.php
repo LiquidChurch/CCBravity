@@ -289,6 +289,8 @@ class CCB_GRAVITY_Functionality
     {
         $this->add_dev_classes();
 
+        $this->config_page  = CCB_GRAVITY_option_settings::get_instance();
+
         $this->shortcode        = new CCB_Shortcodes($this);
         $this->session          = new CCB_GRAVITY_manage_session($this);
         $this->action           = new CCB_GRAVITY_action_handler($this);
@@ -298,7 +300,6 @@ class CCB_GRAVITY_Functionality
         // Only create the full metabox object if in the admin.
         if (is_admin())
         {
-            $this->config_page  = CCB_GRAVITY_option_settings::get_instance();
             $this->gravity_mods = new CCB_GRAVITY_form_mods($this);
         } else
         {

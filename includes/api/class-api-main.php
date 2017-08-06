@@ -34,9 +34,11 @@ abstract class CCB_GRAVITY_api_main
     {
         $this->plugin = $plugin;
         $this->ajax_call = defined('DOING_AJAX') && DOING_AJAX;
+        $api_uname = ccb_gravity_get_option('option', 'ccb_gravity_option_ccb_api_username');
+        $api_pass = ccb_gravity_get_option('option', 'ccb_gravity_option_ccb_api_password');
         $this->api_args = array(
             'headers' => array(
-                'Authorization' => 'Basic ' . base64_encode('ccbgravity:HR%0ZPAeZM@n')
+                'Authorization' => 'Basic ' . base64_encode("{$api_uname}:{$api_pass}")
             )
         );
     }

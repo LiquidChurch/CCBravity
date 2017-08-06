@@ -76,11 +76,12 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
             $forms         = GFAPI::get_forms();
             $filter_forms  = array_filter($forms, function ($v)
             {
-                if ($v['ccb_api_settings'] == 'add_individual_to_event')
+                if (isset($v['ccb_api_settings']) && $v['ccb_api_settings'] == 'add_individual_to_event')
                 {
                     return TRUE;
                 }
             });
+
             $args['forms'] = $filter_forms;
 
             return CCB_GRAVITY_Template_Loader::output_template('report/index', $args);
@@ -186,8 +187,8 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
 
     public function add_related_ccb_field_script()
     {
-        $this->enqueu_js();
-        $this->enqueu_css();
+        $this->enqueue_js();
+        $this->enqueue_css();
 
         $min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
@@ -212,7 +213,7 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         );
     }
 
-    public function enqueu_js()
+    public function enqueue_js()
     {
         $min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
@@ -224,7 +225,7 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         );
     }
 
-    public function enqueu_css()
+    public function enqueue_css()
     {
         $min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
@@ -246,8 +247,8 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
 
     public function add_ccb_settings($settings, $form)
     {
-        $this->enqueu_js();
-        $this->enqueu_css();
+        $this->enqueue_js();
+        $this->enqueue_css();
 
         $min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
@@ -273,7 +274,7 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         {
             foreach ($ccb_service_values as $i => $item)
             {
-                $settings['Form Basics']['ccb_api_settings'] .= '<option>' . $item . '</option>';
+                $settings['Form Basics']['ccb_api_settings'] .= '<option value="' . $i . '">' . $item . '</option>';
             }
         }
         $settings['Form Basics']['ccb_api_settings'] .= '</select></td></tr>';

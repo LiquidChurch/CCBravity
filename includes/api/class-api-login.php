@@ -37,13 +37,13 @@ class CCB_GRAVITY_api_login extends CCB_GRAVITY_api_main
 
         $post_fields = $this->plugin->gravity_render->gform_api_field;
 
-        if(empty($post_fields['login.username']) || empty($post_fields['login.password'])) {
+        if(empty($post_fields[$this->api_name . '.login']) || empty($this->api_name . '.password')) {
             return new WP_Error('not_found', 'Username and Password fields are required');
         }
 
         $this->api_fields = array(
-            'login' => isset($post_fields['login.username']) ? $post_fields['login.username'] : '',
-            'password' => isset($post_fields['login.password']) ? $post_fields['login.password'] : '',
+            'login' => isset($post_fields[$this->api_name . '.login']) ? $post_fields[$this->api_name . '.login'] : '',
+            'password' => isset($post_fields[$this->api_name . '.password']) ? $post_fields[$this->api_name . '.password'] : '',
         );
     }
 
