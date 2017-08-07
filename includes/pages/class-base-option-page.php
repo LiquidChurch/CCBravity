@@ -114,6 +114,35 @@ abstract class CCB_GRAVITY_Base_Option_Page {
     }
 
     /**
+     * get all gform list
+     * @return array
+     * @since 1.0.0
+     */
+    public static function get_gform_list()
+    {
+        $form_array = array();
+
+        // Gravity Form
+        if (class_exists('RGFormsModel'))
+        {
+            $forms = RGFormsModel::get_forms(NULL, 'title');
+            if ( ! empty($forms) && is_array($forms))
+            {
+                $form_array[''] = 'Select';
+                foreach ($forms as $form)
+                {
+                    if (isset($form->title, $form->id))
+                    {
+                        $form_array[$form->id] = $form->title;
+                    }
+                }
+            }
+        }
+
+        return $form_array;
+    }
+
+    /**
      * Public getter method for retrieving protected/private variables
      *
      * @since  1.0.0

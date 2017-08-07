@@ -67,7 +67,7 @@ class CCB_GRAVITY_option_settings extends CCB_GRAVITY_Base_Option_Page
     public function __construct()
     {
         // Set our title
-        $this->title = __('CCB Gravity Settings', 'liquid-outreach');
+        $this->title = __('CCB Gravity Settings', 'ccb-gravity');
 
         $this->hooks();
     }
@@ -126,8 +126,8 @@ class CCB_GRAVITY_option_settings extends CCB_GRAVITY_Base_Option_Page
         // Set our CMB2 fields
 
         $cmb->add_field(array(
-            'name'       => __('CCB API Username', 'liquid-outreach'),
-            'desc'       => __('Please enter your username for accessing CCB API.', 'liquid-outreach'),
+            'name'       => __('CCB API Username', 'ccb-gravity'),
+            'desc'       => __('Please enter your username for accessing CCB API.', 'ccb-gravity'),
             'id'         => $this->meta_prefix . 'ccb_api_username',
             'type'       => 'text',
             'attributes' => ['required' => 'required'],
@@ -135,8 +135,8 @@ class CCB_GRAVITY_option_settings extends CCB_GRAVITY_Base_Option_Page
         ));
 
         $cmb->add_field(array(
-            'name'       => __('CCB API Password', 'liquid-outreach'),
-            'desc'       => __('Please enter your password for accessing CCB API.', 'liquid-outreach'),
+            'name'       => __('CCB API Password', 'ccb-gravity'),
+            'desc'       => __('Please enter your password for accessing CCB API.', 'ccb-gravity'),
             'id'         => $this->meta_prefix . 'ccb_api_password',
             'type'       => 'text',
             'attributes' => [
@@ -147,8 +147,8 @@ class CCB_GRAVITY_option_settings extends CCB_GRAVITY_Base_Option_Page
         ));
 
         $cmb->add_field(array(
-            'name'       => __('CCB API Default Community Group Leader ID', 'liquid-outreach'),
-            'desc'       => __('Please enter group leader ID.', 'liquid-outreach'),
+            'name'       => __('CCB API Default Community Group Leader ID', 'ccb-gravity'),
+            'desc'       => __('Please enter group leader ID.', 'ccb-gravity'),
             'id'         => $this->meta_prefix . 'ccb_api_comm_group_id',
             'type'       => 'text',
             'attributes' => [
@@ -156,6 +156,15 @@ class CCB_GRAVITY_option_settings extends CCB_GRAVITY_Base_Option_Page
                 'type'     => 'number'
             ],
             'default'    => '',
+        ));
+
+        //gravity form select option
+        $cmb->add_field(array(
+            'name' => __('Select Gravity Form for CCB Login', 'ccb-gravity'),
+            'desc' => __('', 'ccb-gravity'),
+            'id'   => $this->meta_prefix . 'ccb_login_gform',
+            'type' => 'select',
+            'options_cb' => ['CCB_GRAVITY_Base_Option_Page', 'get_gform_list'],
         ));
 
     }
