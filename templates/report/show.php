@@ -17,8 +17,8 @@
         $unsynced = $entry_count - $entry_succs_count;
     }
 
-    p($form, 0);
-    p($entries, 0);
+//    p($form, 0);
+//    p($entries, 0);
     ?>
     <h2><?php echo $form['title'] ?></h2>
     <hr/>

@@ -137,9 +137,10 @@ class CCB_GRAVITY_api_create_individual extends CCB_GRAVITY_api_main
         $this->api_response_arr = array();
 
         $this->api_fields = array(
-            'first_name' => isset($data['fname']) ? $data['fname'] : '',
-            'last_name'  => isset($data['lname']) ? $data['lname'] : '',
+            'first_name' => isset($data['first_name']) ? $data['first_name'] : '',
+            'last_name'  => isset($data['last_name']) ? $data['last_name'] : '',
             'email'      => isset($data['email']) ? $data['email'] : '',
+            'contact_phone'      => isset($data['phone']) ? $data['phone'] : '',
         );
 
         if ($event == 'secondary_individual_family')
