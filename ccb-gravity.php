@@ -102,6 +102,7 @@ class CCB_GRAVITY_Functionality
     protected $gform_enabled_ccb_services = [
         'individual_profile_from_login_password' => 'User login form',
         'add_individual_to_event'                => 'Individual Event registration form',
+        'create_individual'                      => 'Create Individual',
     ];
 
     /**
@@ -123,6 +124,7 @@ class CCB_GRAVITY_Functionality
         $this->gform_api_field_map = [
             'individual_profile_from_login_password' => CCB_GRAVITY_api_login::$link_api_fields,
             'add_individual_to_event'                => CCB_GRAVITY_api_add_to_event::$link_api_fields,
+            'create_individual'                      => CCB_GRAVITY_api_create_individual::$link_api_fields,
         ];
     }
 
@@ -289,7 +291,7 @@ class CCB_GRAVITY_Functionality
     {
         $this->add_dev_classes();
 
-        $this->config_page  = CCB_GRAVITY_option_settings::get_instance();
+        $this->config_page = CCB_GRAVITY_option_settings::get_instance();
 
         $this->shortcode        = new CCB_Shortcodes($this);
         $this->session          = new CCB_GRAVITY_manage_session($this);

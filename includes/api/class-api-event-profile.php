@@ -39,12 +39,12 @@ class CCB_GRAVITY_api_event_profile extends CCB_GRAVITY_api_main
 
         $post_fields = $this->plugin->gravity_render->gform_api_field;
 
-        if (!isset($post_fields['event.id'])) {
+        if (!isset($post_fields['add_individual_to_event.event_id'])) {
             return new WP_Error('not_found', 'Event ID values are required');
         }
 
         $this->api_fields = array(
-            'id' => isset($post_fields['event.id']) ? $post_fields['event.id'] : '',
+            'id' => isset($post_fields['add_individual_to_event.event_id']) ? $post_fields['add_individual_to_event.event_id'] : '',
         );
     }
 

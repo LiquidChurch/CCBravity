@@ -71,6 +71,7 @@ abstract class CCB_GRAVITY_Base_Option_Page {
             $this->key,
             array( $this, 'admin_page_display' )
         );
+        remove_submenu_page('ccb-gravity','ccb-gravity');
 
         // Include CMB CSS in the head to avoid FOUC
         add_action( "admin_print_styles-{$this->options_page}",

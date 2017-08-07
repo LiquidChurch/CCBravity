@@ -11,6 +11,7 @@ class CCB_GRAVITY_api_login extends CCB_GRAVITY_api_main
     protected $api_name = "individual_profile_from_login_password";
     protected $api_req_str = "srv=individual_profile_from_login_password";
     protected $api_url = "";
+    protected $api_fields;
 
     public static $link_api_fields = [
         'login'       => ['required' => TRUE],

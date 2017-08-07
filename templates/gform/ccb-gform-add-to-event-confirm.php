@@ -11,13 +11,14 @@
             </p>
             <p>
                 <?php
-                echo __('Thank you for registering to the event, if you want to register to another event, ' .
-                    'then please click the link below link and submit the form again with the required details.', 'ccb-gravity');
+                echo __('Thank you for registering to the event', 'ccb-gravity');
+//                echo __('Thank you for registering to the event, if you want to register to another event, ' .
+//                    'then please click the link below link and submit the form again with the required details.', 'ccb-gravity');
                 ?>
             </p>
-            <p>
-                <a href="<?php echo get_page_uri() . '#gf_' . $this->get('form_id') ?>"><?php echo __('Register Again', 'ccb-gravity') ?></a>
-            </p>
+<!--            <p>-->
+<!--                <a href="--><?php //echo get_page_uri() . '#gf_' . $this->get('form_id') ?><!--">--><?php //echo __('Register Again', 'ccb-gravity') ?><!--</a>-->
+<!--            </p>-->
         </div>
     </div>
 </div>
