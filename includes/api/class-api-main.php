@@ -72,7 +72,7 @@ abstract class CCB_GRAVITY_api_main
                 'error_msg' => $this->api_response->get_error_message(),
                 'wp_error_obj' => $this->api_response
             );
-            ccb_debug('add', array($this->api_name . ' -> api_wp_error', json_encode($this->api_error), 0, 'API'));
+            ccb_debug('add', array($this->api_name . ' -> api_wp_error', json_encode($this->api_error), 0, 'ccb-api-calls'));
         }
     }
 
@@ -80,7 +80,7 @@ abstract class CCB_GRAVITY_api_main
     {
         if (empty($this->api_error)) {
             $this->api_http_resp_code = wp_remote_retrieve_response_code($this->api_response);
-            ccb_debug('add', array($this->api_name . ' -> api_http_resp_code', json_encode($this->api_http_resp_code), 0, 'API'));
+            ccb_debug('add', array($this->api_name . ' -> api_http_resp_code', json_encode($this->api_http_resp_code), 0, 'ccb-api-calls'));
         }
     }
 
@@ -93,7 +93,7 @@ abstract class CCB_GRAVITY_api_main
                 'error_code' => __('HTTP-' . $this->api_http_resp_code, 'ccb-gravity'),
                 'error_msg' => __('Critical Error, Please contact site administrator', 'ccb-gravity')
             );
-            ccb_debug('add', array($this->api_name . ' -> api_http_resp_code_error', json_encode($this->api_error), 0, 'API'));
+            ccb_debug('add', array($this->api_name . ' -> api_http_resp_code_error', json_encode($this->api_error), 0, 'ccb-api-calls'));
         }
     }
 
@@ -102,7 +102,7 @@ abstract class CCB_GRAVITY_api_main
         if (empty($this->api_error)) {
             $body = wp_remote_retrieve_body($this->api_response);
             $this->api_response_arr = $this->xmlToArray(simplexml_load_string($body));
-            ccb_debug('add', array($this->api_name . ' -> api_response_arr', json_encode($this->api_response_arr), 0, 'API'));
+            ccb_debug('add', array($this->api_name . ' -> api_response_arr', json_encode($this->api_response_arr), 0, 'ccb-api-calls'));
         }
     }
 
@@ -194,7 +194,7 @@ abstract class CCB_GRAVITY_api_main
                 'error_code' => isset($api_resp['errors']['error']['type']) ? $api_resp['errors']['error']['type'] : '',
                 'error_msg' => isset($api_resp['errors']['error']['value']) ? $api_resp['errors']['error']['value'] : ''
             );
-            ccb_debug('add', array($this->api_name . ' -> api_response_error', json_encode($this->api_error), 0, 'API'));
+            ccb_debug('add', array($this->api_name . ' -> api_response_error', json_encode($this->api_error), 0, 'ccb-api-calls'));
         }
     }
 
@@ -208,7 +208,7 @@ abstract class CCB_GRAVITY_api_main
                 'error_code' => __('no data', 'ccb-gravity'),
                 'error_msg' => __('No data found!!!', 'ccb-gravity')
             );
-            ccb_debug('add', array($this->api_name . ' -> api_response_nodata_error', json_encode($this->api_error), 0, 'API'));
+            ccb_debug('add', array($this->api_name . ' -> api_response_nodata_error', json_encode($this->api_error), 0, 'ccb-api-calls'));
         }
     }
 

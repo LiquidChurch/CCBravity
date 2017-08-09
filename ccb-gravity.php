@@ -36,7 +36,10 @@
  */
 
 //define CCB_ENV
-define('CCB_ENV', 'testing');
+if (!defined('CCB_ENV'))
+{
+    define('CCB_ENV', 'development');
+}
 
 // User composer autoload.
 require __DIR__ . '/vendor/autoload.php';

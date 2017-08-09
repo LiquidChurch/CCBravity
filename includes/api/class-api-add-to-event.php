@@ -78,7 +78,7 @@ class CCB_GRAVITY_api_add_to_event extends CCB_GRAVITY_api_main
             ));
 
         $this->api_response = wp_remote_post($this->api_url, $this->api_args);
-        ccb_debug('add', array($this->api_name . ' -> raw_api_response', json_encode($this->api_response), 0, 'API'));
+//        ccb_debug('add', array($this->api_name . ' -> raw_api_response', json_encode($this->api_response), 0, 'ccb-api-calls'));
     }
 
     public function ccb_sync_add_to_event($indv_data, $event_data, $extra_info = array())
