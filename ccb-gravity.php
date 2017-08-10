@@ -18,7 +18,7 @@
  */
 
 /**
- * Copyright (c) 2016 Suraj Pr Gupta (email : suraj.gupta@scripterz.in)
+ * Copyright (c) 2016-2017 Suraj Pr Gupta (email : suraj.gupta@scripterz.in)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or, at
@@ -59,7 +59,7 @@ class CCB_GRAVITY_Functionality
      * @since  1.0.0
      */
     const VERSION                       = '1.0.0';
-    const CCB_COMMUNITY_GROUP_LEADER_ID = 35917;
+    const CCB_COMMUNITY_GROUP_LEADER_ID = 35917; // TODO: Make this an option in Settings
     /**
      * Path of plugin directory
      *
@@ -336,7 +336,7 @@ class CCB_GRAVITY_Functionality
         include __DIR__ . '/dev/Logging_Mods.php';
     }
 
-    protected function enque_script()
+    protected function enque_script() // TODO: Change to enqueue_script
     {
         $admin_page = rgget('page');
         $min        = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
@@ -361,7 +361,7 @@ class CCB_GRAVITY_Functionality
 
             wp_enqueue_script(
                 'jquery-datatable',
-                '//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js',
+                '//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js', // TODO: Update to latest
                 array(),
                 CCB_GRAVITY_Functionality::VERSION
             );
