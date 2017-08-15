@@ -850,7 +850,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
             $api_data = $this->get_api_data($this->gform_form, $this->gform_entry);
             gform_update_meta($this->gform_entry_id, 'api_data', $api_data);
 
-            wp_schedule_single_event(time(), 'ccb_gform_sync_hook', $args = array($this->gform_entry_id));
+            do_action('ccb_gform_sync_hook', $this->gform_entry_id);
         }
     }
 

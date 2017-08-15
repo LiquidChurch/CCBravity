@@ -3,7 +3,7 @@
 /**
  * CCB GRAVITY wp cron handler
  *
- * @since 1.0.0
+ * @since   1.0.0
  * @package CCB Gravity Functionality
  */
 class CCB_GRAVITY_cron_handler extends CCB_GRAVITY_Abstract
@@ -21,8 +21,6 @@ class CCB_GRAVITY_cron_handler extends CCB_GRAVITY_Abstract
     public function hooks()
     {
         add_action('ccb_gform_sync_hook', array($this, 'schedule_ccb_sync'), 10, 1);
-
-        wp_cron();
     }
 
 }
