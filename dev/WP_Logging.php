@@ -244,7 +244,7 @@ if ( ! class_exists('WP_Logging'))
 
             $log_data = array(
                 'post_title'   => strtoupper(str_replace('_', '-', $title)),
-                'post_content' => $message,
+                'post_content' => is_array($message) ? json_encode($message) : $message,
                 'post_parent'  => $parent,
                 'log_type'     => $type
             );
