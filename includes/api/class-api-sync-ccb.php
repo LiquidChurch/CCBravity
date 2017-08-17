@@ -37,7 +37,7 @@ class CCB_GRAVITY_api_sync_ccb
             /**
              * API Call for creating individual
              */
-            $this->plugin->gravity_api_create_individual->ccb_sync_create_individual($primary_data['individual'][0], $create_individual_api_event);
+            $this->plugin->gravity_api_create_individual->ccb_sync_create_individual($primary_data, $create_individual_api_event);
 
             if (!empty($this->plugin->gravity_api_create_individual->api_error)) {
                 $api_sync = false;
