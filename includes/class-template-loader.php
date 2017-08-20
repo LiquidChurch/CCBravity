@@ -16,7 +16,7 @@ class CCB_GRAVITY_Template_Loader {
 	/**
 	 * Array of arguments for template
 	 *
-	 * @var array
+	 * @var array $args
 	 * @since 1.0.0
 	 */
 	public $args = array();
@@ -24,7 +24,7 @@ class CCB_GRAVITY_Template_Loader {
 	/**
 	 * Template names array
 	 *
-	 * @var array
+	 * @var array $templates
 	 * @since 1.0.0
 	 */
 	public $templates = array();
@@ -32,7 +32,7 @@ class CCB_GRAVITY_Template_Loader {
 	/**
 	 * Template name
 	 *
-	 * @var string
+	 * @var string $template
 	 * @since 1.0.0
 	 */
 	public $template = '';
@@ -40,7 +40,7 @@ class CCB_GRAVITY_Template_Loader {
 	/**
 	 * Template file extension
 	 *
-	 * @var string
+	 * @var string $extension
 	 * @since 1.0.0
 	 */
 	protected $extension = '.php';
@@ -53,8 +53,8 @@ class CCB_GRAVITY_Template_Loader {
 	 * @param string  $template The template file name, relative to the includes/templates/ folder - with or without .php extension
 	 * @param string  $name     The name of the specialised template. If array, will take the place of the $args.
 	 * @param array   $args     An array of arguments to extract as variables into the template
+	 * @throws Exception
 	 *
-	 * @return void
 	 */
 	public function __construct( $template, $name = null, array $args = array() ) {
 		if ( empty( $template ) ) {

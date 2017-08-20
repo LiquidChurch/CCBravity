@@ -4,7 +4,7 @@
  * Plugin URI:  http://www.liquidchurch.com/
  * Description: CCB API and Gravity Form Integration
  * Version:     1.0.0
- * Author:      Suraj Gupta, Dave Mackey, Liquidchurch
+ * Author:      Suraj Gupta, Dave Mackey (@davidshq), Liquid Church
  * Author URI:  http://www.liquidchurch.com/
  * Donate link: http://www.liquidchurch.com/
  * License:     GPLv2
@@ -36,9 +36,11 @@
  */
 
 //define CCB_ENV
+// development
+// testing
 if (!defined('CCB_ENV'))
 {
-    define('CCB_ENV', 'development');
+    define('CCB_ENV', 'testing');
 }
 
 // User composer autoload.
@@ -60,6 +62,7 @@ class CCB_GRAVITY_Functionality
      */
     const VERSION                       = '1.0.0';
     const CCB_COMMUNITY_GROUP_LEADER_ID = 35917; // TODO: Make this an option in Settings
+
     /**
      * Path of plugin directory
      *
@@ -67,6 +70,7 @@ class CCB_GRAVITY_Functionality
      * @since  1.0.0
      */
     public static $path = '';
+
     /**
      * Singleton instance of plugin
      *
@@ -74,6 +78,7 @@ class CCB_GRAVITY_Functionality
      * @since  1.0.0
      */
     protected static $single_instance = NULL;
+
     /**
      * URL of plugin directory
      *
@@ -81,6 +86,7 @@ class CCB_GRAVITY_Functionality
      * @since  1.0.0
      */
     protected $url = '';
+
     /**
      * Plugin basename
      *
@@ -88,10 +94,11 @@ class CCB_GRAVITY_Functionality
      * @since  1.0.0
      */
     protected $basename = '';
+
     /**
      * Instance of CCB_GRAVITY_Config_Page
      *
-     * @since scripterz-mods
+     * @since 1.0.0
      * @var CCB_GRAVITY_Config_Page
      */
     protected $config_page;
@@ -103,12 +110,14 @@ class CCB_GRAVITY_Functionality
      * @since 0.1.0
      */
     protected $gform_enabled_ccb_services = [
-        'individual_profile_from_login_password' => 'User login form',
-        'add_individual_to_event'                => 'Individual Event registration form',
+        'individual_profile_from_login_password' => 'User Login Form',
+        'add_individual_to_event'                => 'Individual Event Registration Form',
         'create_individual'                      => 'Create Individual',
     ];
 
     /**
+     * Gravity Forms API Field Map
+     *
      * @var array
      * @since 0.1.0
      */
@@ -324,6 +333,13 @@ class CCB_GRAVITY_Functionality
         $this->gravity_api_get_attendance_profile  = new CCB_GRAVITY_api_attendance_profile($this);
     }
 
+
+	/**
+	 * Add Developer Classes
+	 *
+	 * These are classes that are only included if the environment has been set to development
+	 *
+	 */
     public function add_dev_classes()
     {
         if (defined('CCB_ENV') && CCB_ENV == 'development')
@@ -336,6 +352,9 @@ class CCB_GRAVITY_Functionality
         include __DIR__ . '/dev/Logging_Mods.php';
     }
 
+	/**
+	 * Enqueue Our Scripts
+	 */
     protected function enque_script() // TODO: Change to enqueue_script
     {
         $admin_page = rgget('page');
@@ -392,7 +411,10 @@ class CCB_GRAVITY_Functionality
         return $url . $path;
     }
 
-    protected function enque_style()
+	/**
+	 * Enqueue Styles
+	 */
+    protected function enque_style() // TODO: Change to enqueue_style
     {
         $admin_page = rgget('page');
         $min        = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
@@ -430,6 +452,9 @@ class CCB_GRAVITY_Functionality
         add_menu_page('CCB GRAVITY', __('CCB GRAVITY', 'ccb-gravity'), 'manage_options', 'ccb-gravity', array($this, 'page_ccb_gravity_index'));
     }
 
+    /**
+     *  What does this do?
+     */
     public function page_ccb_gravity_index()
     {
         echo 'page_ccb_gravity_index';
@@ -505,4 +530,3 @@ add_action('plugins_loaded', array(ccb_gravity_func(), 'hooks'));
 
 register_activation_hook(__FILE__, array(ccb_gravity_func(), '_activate'));
 register_deactivation_hook(__FILE__, array(ccb_gravity_func(), '_deactivate'));
-

@@ -5,6 +5,8 @@
  *
  * @since 1.0.0
  * @package CCB Gravity Functionality
+ *
+ * @var $plugin
  */
 class CCB_GRAVITY_api_sync_ccb
 {

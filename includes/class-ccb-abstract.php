@@ -10,7 +10,7 @@ abstract class CCB_GRAVITY_Abstract
     /**
      * Parent plugin class
      *
-     * @var   class
+     * @var   class $plugin
      * @since 1.0.0
      */
     protected $plugin = null;
@@ -18,7 +18,7 @@ abstract class CCB_GRAVITY_Abstract
     /**
      * ajax call detect
      *
-     * @var bool|null
+     * @var bool|null $ajax_call
      */
     protected $ajax_call = null;
 
@@ -27,7 +27,6 @@ abstract class CCB_GRAVITY_Abstract
      *
      * @since  1.0.0
      * @param  object $plugin Main plugin object.
-     * @return void
      */
     public function __construct($plugin)
     {
