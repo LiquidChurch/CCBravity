@@ -10,13 +10,15 @@ abstract class CCB_GRAVITY_api_main
 {
     public $api_error = array();
     public $api_response_arr = array();
+
     /**
      * Parent plugin class
      *
-     * @var   class
+     * @var   class $plugin
      * @since 1.0.0
      */
     protected $plugin = null;
+
     /**
      * ajax call detect
      *
@@ -106,6 +108,16 @@ abstract class CCB_GRAVITY_api_main
         }
     }
 
+	/**
+	 * Convert XML to Array
+	 *
+	 * Convert XML response from CCB API into a PHP Array
+	 *
+	 * @param $xml
+	 * @param array $options
+	 *
+	 * @return array
+	 */
     protected function xmlToArray($xml, $options = array())
     {
         $defaults = array(
@@ -184,6 +196,9 @@ abstract class CCB_GRAVITY_api_main
         );
     }
 
+	/**
+	 * Check for Errors in XML Response to Array Conversion
+	 */
     protected function after_xml_resp_to_array_check_error()
     {
         $api_resp = isset($this->api_response_arr['ccb_api']['response']) ? $this->api_response_arr['ccb_api']['response'] : array();
@@ -198,6 +213,9 @@ abstract class CCB_GRAVITY_api_main
         }
     }
 
+	/**
+	 * Check if there is actually data in Response Array
+	 */
     protected function after_xml_resp_to_array_check_nodata()
     {
         $api_resp = isset($this->api_response_arr['ccb_api']['response']) ? $this->api_response_arr['ccb_api']['response'] : array();

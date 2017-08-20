@@ -12,6 +12,11 @@ class CCB_GRAVITY_action_handler extends CCB_GRAVITY_Abstract
     private $verify_nonce = '';
     public $referrer_url = '';
 
+	/**
+	 * CCB_GRAVITY_action_handler constructor.
+	 *
+	 * @param object $plugin
+	 */
     public function __construct($plugin)
     {
         $wp_referrer_url = wp_get_referer();
@@ -44,6 +49,11 @@ class CCB_GRAVITY_action_handler extends CCB_GRAVITY_Abstract
         }
     }
 
+	/**
+	 * Verify Nonce
+	 *
+	 * @return false|int nonce
+	 */
     public function verify_nonce()
     {
         return wp_verify_nonce($this->verify_nonce, 'ccb-gravity');

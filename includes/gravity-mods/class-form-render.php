@@ -9,32 +9,34 @@
 class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
 {
     /**
-     * @var string
+     * Gravity Form CCB API Settings
+     *
+     * @var string $gform_ccb_api_settings
      */
     public $gform_ccb_api_settings = '';
 
     /**
-     * @var array
+     * @var array $gform_form
      */
     public $gform_form = array();
 
     /**
-     * @var array
+     * @var array $gform_entry
      */
     public $gform_entry = array();
 
     /**
-     * @var string
+     * @var string $gform_entry_id
      */
     public $gform_entry_id = '';
 
     /**
-     * @var string
+     * @var string $gform_api_field
      */
     public $gform_api_field = '';
 
     /**
-     * @var false|string|void
+     * @var false|string|void $referrer_url
      */
     public $referrer_url = '';
 
@@ -128,7 +130,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
     }
 
     /**
-     * US Zipcode address compatibily for CCB API
+     * US Zipcode Address Compatibility for CCB API
      *
      * @param $address_types
      * @param $form_id
@@ -463,7 +465,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
     }
 
     /**
-     * get ccb apin field lists with value
+     * get ccb api field lists with value
      *
      * @return array
      */
@@ -708,6 +710,11 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
         $this->plugin->gravity_api_individual_groups->gform_api_map();
     }
 
+	/**
+	 * Check Event Limit
+	 *
+	 * @return array
+	 */
     public function _check_event_limit()
     {
         $api_error           = FALSE;

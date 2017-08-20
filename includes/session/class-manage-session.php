@@ -8,11 +8,23 @@
  */
 class CCB_GRAVITY_manage_session extends CCB_GRAVITY_Abstract
 {
+	/**
+	 * CCB_GRAVITY_manage_session constructor.
+	 *
+	 * @param object $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
+	/**
+	 * Save API Login Session
+	 *
+	 * @param $api_resp_arr
+	 * @param $api_err
+	 * @param array $extra_sess_val
+	 */
     public static function save_api_login_session($api_resp_arr, $api_err, $extra_sess_val = array())
     {
         if (!empty($api_err)) {
@@ -29,6 +41,13 @@ class CCB_GRAVITY_manage_session extends CCB_GRAVITY_Abstract
         }
     }
 
+	/**
+	 * Save API Individual Groups Session
+	 *
+	 * @param $api_resp_arr
+	 * @param $api_err
+	 * @param array $extra_sess_val
+	 */
     public static function save_api_individual_groups_session($api_resp_arr, $api_err, $extra_sess_val = array())
     {
         if (!empty($api_err)) {
@@ -50,6 +69,15 @@ class CCB_GRAVITY_manage_session extends CCB_GRAVITY_Abstract
         }
     }
 
+	/**
+	 * Save API Group Participants Session
+	 *
+	 * @param $api_resp_arr
+	 * @param $api_err
+	 * @param array $extra_sess_val
+	 *
+	 * @return mixed
+	 */
     public static function save_api_group_participants_session($api_resp_arr, $api_err, $extra_sess_val = array())
     {
         if (!empty($api_err)) {
@@ -78,6 +106,11 @@ class CCB_GRAVITY_manage_session extends CCB_GRAVITY_Abstract
         return $ccb_plugin['group_participants'][$extra_sess_val['group_id']];
     }
 
+	/**
+	 * Is User Logged In?
+	 *
+	 * @return bool
+	 */
     public static function if_user_logged_in()
     {
         if (isset($_SESSION['ccb_plugin']['login_authenticated']) && ($_SESSION['ccb_plugin']['login_authenticated'] == true))
@@ -85,6 +118,11 @@ class CCB_GRAVITY_manage_session extends CCB_GRAVITY_Abstract
         return false;
     }
 
+	/**
+	 * Logout User
+	 *
+	 * @return bool
+	 */
     public static function logout_user()
     {
         if (isset($_SESSION['ccb_plugin'])) {

@@ -11,7 +11,7 @@
             </p>
             <p>
                 <?php
-                echo __('Thank you for registering to the event', 'ccb-gravity');
+                echo __('Thank you for registering for this event', 'ccb-gravity');
 //                echo __('Thank you for registering to the event, if you want to register to another event, ' .
 //                    'then please click the link below link and submit the form again with the required details.', 'ccb-gravity');
                 ?>

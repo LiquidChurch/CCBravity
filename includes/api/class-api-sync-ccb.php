@@ -5,9 +5,16 @@
  *
  * @since 1.0.0
  * @package CCB Gravity Functionality
+ *
+ * @var $plugin
  */
 class CCB_GRAVITY_api_sync_ccb
 {
+	/**
+	 * CCB_GRAVITY_api_sync_ccb constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         $this->plugin = $plugin;
@@ -19,6 +26,12 @@ class CCB_GRAVITY_api_sync_ccb
         );
     }
 
+	/**
+	 * @param $api_data
+	 * @param $api_events
+	 *
+	 * @return mixed
+	 */
     public function sync_gform_data_ccb_api(&$api_data, &$api_events)
     {
         $primary_data = isset($api_data['primary']) ? $api_data['primary'] : array();
@@ -28,7 +41,7 @@ class CCB_GRAVITY_api_sync_ccb
         $error = array();
 
         /**
-         * codition to check if create individual api call is required or it's created or not
+         * condition to check if create individual api call is required or it's created or not
          */
         if (($api_events['create_primary_individual'] == true) && (!isset($primary_data['api_sync']['create_individual']['success']) || ($primary_data['api_sync']['create_individual']['success'] == false))) {
 
@@ -297,4 +310,3 @@ class CCB_GRAVITY_api_sync_ccb
         }
     }
 }
-

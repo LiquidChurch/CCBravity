@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CCB GRAVITY API Create Individual
+ * CCB GRAVITY API Get Individual Profile
  *
  * @since 1.0.0
  * @package CCB Gravity Functionality
@@ -13,11 +13,19 @@ class CCB_GRAVITY_api_get_individual_profile extends CCB_GRAVITY_api_main
     protected $api_url = "";
     protected $api_fields;
 
+	/**
+	 * CCB_GRAVITY_api_get_individual_profile constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
+	/**
+	 * @return array
+	 */
     public function gform_api_map()
     {
         $this->map_fields();
@@ -32,6 +40,9 @@ class CCB_GRAVITY_api_get_individual_profile extends CCB_GRAVITY_api_main
         );
     }
 
+	/**
+	 * @return WP_Error
+	 */
     public function map_fields()
     {
         if (!isset($_POST['individual_id'])) {

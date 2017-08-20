@@ -8,6 +8,11 @@
  */
 class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
 {
+	/**
+	 * CCB_GRAVITY_form_mods constructor.
+	 *
+	 * @param object $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
@@ -88,6 +93,14 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         }
     }
 
+	/**
+     * Add Additional Form Action
+     *
+	 * @param $actions
+	 * @param $form_id
+	 *
+	 * @return mixed
+	 */
     public function add_addtnl_form_action($actions, $form_id)
     {
         $form_details = GFFormsModel::get_form_meta($form_id);
@@ -103,6 +116,14 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
 
     }
 
+	/**
+     * First Column Actions
+     *
+	 * @param $form_id
+	 * @param $field_id
+	 * @param $value
+	 * @param $entry
+	 */
     public function first_column_actions($form_id, $field_id, $value, $entry)
     {
         $form_details = GFFormsModel::get_form_meta($form_id);
@@ -124,6 +145,12 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         }
     }
 
+	/**
+     * Add Related CCB Field
+     *
+	 * @param $position
+	 * @param $form_id
+	 */
     public function add_related_ccb_field($position, $form_id)
     {
 
@@ -154,6 +181,11 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         }
     }
 
+	/**
+     * Generate CCB Field Report Tag
+     *
+	 * @param $form_id
+	 */
     private function gen_ccb_field_report_tag($form_id)
     {
         echo '<input type="checkbox" id="ccb_field_report_' . $form_id . '" class="ccb_field_report" />';
@@ -164,6 +196,11 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
 //        echo '</select>';
     }
 
+	/**
+     * Generate CCB Select Tag
+     *
+	 * @param $form_id
+	 */
     private function gen_ccb_select_tag($form_id)
     {
         $ccb_service      = $this->plugin->gform_enabled_ccb_services;
@@ -185,6 +222,9 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         echo '</select>';
     }
 
+	/**
+	 * Add Related CCB Field Script
+	 */
     public function add_related_ccb_field_script()
     {
         $this->enqueue_js();
@@ -213,6 +253,9 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         );
     }
 
+	/**
+	 * Enqueue JS
+	 */
     public function enqueue_js()
     {
         $min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
@@ -225,6 +268,9 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         );
     }
 
+    /**
+     * Enqueue CSS
+     */
     public function enqueue_css()
     {
         $min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
@@ -237,6 +283,13 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         );
     }
 
+	/**
+     * Add Related CCB Field Tooltips
+     *
+	 * @param $tooltips
+	 *
+	 * @return mixed
+	 */
     public function add_related_ccb_field_tooltips($tooltips)
     {
         $tooltips['form_ccb_field_value']  = "<h6>CCB Field</h6>" . _('Please enter and select the CCB Field');
@@ -245,6 +298,14 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         return $tooltips;
     }
 
+	/**
+     * Add CCB Settings
+     *
+	 * @param $settings
+	 * @param $form
+	 *
+	 * @return mixed
+	 */
     public function add_ccb_settings($settings, $form)
     {
         $this->enqueue_js();
@@ -282,6 +343,13 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         return $settings;
     }
 
+	/**
+     * Save CCB Setting
+     *
+	 * @param $form
+	 *
+	 * @return mixed
+	 */
     public function save_ccb_setting($form)
     {
         $form['ccb_api_settings'] = rgpost('ccb_api_settings');

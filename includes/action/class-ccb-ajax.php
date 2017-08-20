@@ -8,6 +8,11 @@
  */
 class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
 {
+	/**
+	 * CCB_GRAVITY_ajax_handler constructor.
+	 *
+	 * @param object $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
@@ -28,6 +33,9 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
 
     }
 
+	/**
+	 * @param null $entry_id
+	 */
     public function sync_entry_with_ccb($entry_id = NULL)
     {
 

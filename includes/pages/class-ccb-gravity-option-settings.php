@@ -176,6 +176,7 @@ class CCB_GRAVITY_option_settings extends CCB_GRAVITY_Base_Option_Page
      *
      * @param  string $field Field to retrieve
      *
+     * @throws Exception      Invalid Property
      * @return mixed          Field value or exception is thrown
      */
     public function __get($field)

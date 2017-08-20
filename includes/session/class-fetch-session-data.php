@@ -12,11 +12,23 @@ class CCB_GRAVITY_fetch_session_data extends CCB_GRAVITY_Abstract
     private static $individual_group_profile = array();
     private static $group_participants = array();
 
+	/**
+	 * CCB_GRAVITY_fetch_session_data constructor.
+	 *
+	 * @param object $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
+	/**
+	 * Get User Profile Data
+	 *
+	 * @param $raw_user_data_from_api
+	 *
+	 * @return array
+	 */
     public static function get_user_profile_data($raw_user_data_from_api)
     {
         $return = array();
@@ -67,6 +79,13 @@ class CCB_GRAVITY_fetch_session_data extends CCB_GRAVITY_Abstract
         return $return;
     }
 
+	/**
+	 * Get User Groups Data
+	 *
+	 * @param $raw_groups_data_from_api
+	 *
+	 * @return array
+	 */
     public static function get_user_groups_data($raw_groups_data_from_api) {
         $return = array();
 
@@ -87,6 +106,13 @@ class CCB_GRAVITY_fetch_session_data extends CCB_GRAVITY_Abstract
         return $return;
     }
 
+	/**
+	 * Get User Group Participants Data
+	 *
+	 * @param $raw_data_from_api
+	 *
+	 * @return array
+	 */
     public static function get_user_group_participants_data($raw_data_from_api) {
         $return = array();
 
@@ -107,6 +133,14 @@ class CCB_GRAVITY_fetch_session_data extends CCB_GRAVITY_Abstract
         return $return;
     }
 
+	/**
+	 * Check If Value Equals
+	 *
+	 * @param $data
+	 * @param $value
+	 *
+	 * @return string
+	 */
     public static function check_is_val($data, $value)
     {
         if ((count($value) > '1') == true) {
@@ -128,6 +162,14 @@ class CCB_GRAVITY_fetch_session_data extends CCB_GRAVITY_Abstract
         }
     }
 
+	/**
+	 * Check Array Implode Value
+	 *
+	 * @param $data
+	 * @param $val
+	 *
+	 * @return string
+	 */
     public static function check_arr_implode_val($data, $val)
     {
         $val = self::check_is_val($data, $val);

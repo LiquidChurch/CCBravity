@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CCB GRAVITY API Create Individual
+ * CCB GRAVITY API Create Group
  *
  * @since 1.0.0
  * @package CCB Gravity Functionality

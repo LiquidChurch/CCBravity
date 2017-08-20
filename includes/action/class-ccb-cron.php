@@ -8,11 +8,21 @@
  */
 class CCB_GRAVITY_cron_handler extends CCB_GRAVITY_Abstract
 {
+	/**
+	 * CCB_GRAVITY_cron_handler constructor.
+	 *
+	 * @param object $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
+	/**
+	 * Schedule CCB Sync Cron
+	 *
+	 * @param $entry_args
+	 */
     public function schedule_ccb_sync($entry_args)
     {
         $this->plugin->action_ajax->sync_entry_with_ccb($entry_args);

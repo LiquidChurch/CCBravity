@@ -12,6 +12,11 @@ class CCB_GRAVITY_api_individual_groups extends CCB_GRAVITY_api_main
     protected $api_req_str = "srv=individual_groups";
     protected $api_url = "";
 
+	/**
+	 * CCB_GRAVITY_api_individual_groups constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);

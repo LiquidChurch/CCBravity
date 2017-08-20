@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CCB GRAVITY API Create Individual
+ * CCB GRAVITY API Add Individual To Event
  *
  * @since   1.0.0
  * @package CCB Gravity Functionality
@@ -22,11 +22,19 @@ class CCB_GRAVITY_api_add_to_event extends CCB_GRAVITY_api_main
         ]
     ];
 
+	/**
+	 * CCB_GRAVITY_api_add_to_event constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
+	/**
+	 * Gravity Forms API Map
+	 */
     public function gform_api_map()
     {
         $this->map_fields();
@@ -35,12 +43,19 @@ class CCB_GRAVITY_api_add_to_event extends CCB_GRAVITY_api_main
         $this->process_api_response();
     }
 
+    /**
+     * Build CCB API Request String
+     */
     public function mod_req_str()
     {
         $add_req_str       = http_build_query($this->api_fields);
         $this->api_req_str .= '&' . $add_req_str;
     }
 
+	/**
+	 * Map Gravity Forms / CCB Fields
+	 * @return WP_Error
+	 */
     public function map_fields()
     {
         if ( ! isset($this->plugin->gravity_render->gform_api_field))
@@ -62,6 +77,9 @@ class CCB_GRAVITY_api_add_to_event extends CCB_GRAVITY_api_main
         );
     }
 
+	/**
+	 * Call CCB API
+	 */
     public function call_ccb_api()
     {
         $this->api_url  = $this->api_base . '?' . $this->api_req_str;
@@ -81,6 +99,13 @@ class CCB_GRAVITY_api_add_to_event extends CCB_GRAVITY_api_main
 //        ccb_debug('add', array($this->api_name . ' -> raw_api_response', json_encode($this->api_response), 0, 'ccb-api-calls'));
     }
 
+	/**
+	 * Sync Add to Event to CCB
+	 *
+	 * @param $indv_data
+	 * @param $event_data
+	 * @param array $extra_info
+	 */
     public function ccb_sync_add_to_event($indv_data, $event_data, $extra_info = array())
     {
 

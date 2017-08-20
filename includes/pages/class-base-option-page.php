@@ -17,7 +17,7 @@ abstract class CCB_GRAVITY_Base_Option_Page {
     /**
      * Option key, and option page slug
      *
-     * @var string
+     * @var string $key
      * @since 1.0.0
      */
     protected $key = '';
@@ -25,14 +25,14 @@ abstract class CCB_GRAVITY_Base_Option_Page {
     /**
      * Options Page title
      *
-     * @var string
+     * @var string $title
      * @since 0.1.0
      */
     protected $title = '';
     /**
      * Options Page hook
      *
-     * @var string
+     * @var string $options_page
      * @since 1.0.0
      */
     protected $options_page = '';
@@ -150,6 +150,7 @@ abstract class CCB_GRAVITY_Base_Option_Page {
      *
      * @param  string $field Field to retrieve
      *
+     * @throws Exception      Invalid Property
      * @return mixed          Field value or exception is thrown
      */
     public function __get( $field ) {
