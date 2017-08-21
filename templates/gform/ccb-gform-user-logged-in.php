@@ -9,7 +9,7 @@
             <p style="padding-left: 0;">
                 <a href="<?php echo get_page_uri() . '?ccb-action=logout&ccb-verify=' . wp_create_nonce('ccb-gravity') ?>"
                    class="btn btn-info"
-                ><?php echo __('Disconnect from LiquidConnect', 'ccb-gravity') ?></a>
+                ><?php echo __('Logout of LiquidConnect', 'ccb-gravity') ?></a>
             </p>
         </div>
     </div>

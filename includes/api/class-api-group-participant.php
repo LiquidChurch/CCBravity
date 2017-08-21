@@ -13,11 +13,21 @@ class CCB_GRAVITY_api_group_participants extends CCB_GRAVITY_api_main
     protected $api_url = "";
     protected $api_fields;
 
+	/**
+	 * CCB_GRAVITY_api_group_participants constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
+	/**
+	 * Gravity Forms API Map
+	 *
+	 * @return mixed
+	 */
     public function gform_api_map()
     {
         $this->map_fields();
@@ -28,6 +38,11 @@ class CCB_GRAVITY_api_group_participants extends CCB_GRAVITY_api_main
         return $group_participants_details;
     }
 
+	/**
+	 * Map Fields
+	 *
+	 * @return WP_Error
+	 */
     public function map_fields()
     {
         if (!isset($_POST['group_id'])) {
@@ -42,12 +57,18 @@ class CCB_GRAVITY_api_group_participants extends CCB_GRAVITY_api_main
         );
     }
 
+	/**
+	 * Build the string for CCB API call.
+	 */
     public function mod_req_str()
     {
         $add_req_str = http_build_query($this->api_fields);
         $this->api_req_str .= '&' . $add_req_str;
     }
 
+	/**
+	 * Call CCB API
+	 */
     public function call_ccb_api()
     {
         $this->api_url = $this->api_base . '?' . $this->api_req_str;

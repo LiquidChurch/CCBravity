@@ -16,26 +16,36 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
     public $gform_ccb_api_settings = '';
 
     /**
+     * Gravity Form
+     *
      * @var array $gform_form
      */
     public $gform_form = array();
 
     /**
+     * Gravity Form Entry
+     *
      * @var array $gform_entry
      */
     public $gform_entry = array();
 
     /**
+     * Gravity Form Entry ID
+     *
      * @var string $gform_entry_id
      */
     public $gform_entry_id = '';
 
     /**
+     * Gravity Form API Field
+     *
      * @var string $gform_api_field
      */
     public $gform_api_field = '';
 
     /**
+     * Referrer URL
+     *
      * @var false|string|void $referrer_url
      */
     public $referrer_url = '';
@@ -55,7 +65,8 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
     }
 
     /**
-     * class hook
+     * Hooks
+     *
      * will be called when class initiated
      * from abstract class
      */
@@ -130,14 +141,14 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
     }
 
     /**
-     * US Zipcode Address Compatibility for CCB API
+     * US Zip Code Address Compatibility for CCB API
      *
      * @param $address_types
      * @param $form_id
      *
      * @return mixed
      */
-    function address_compatibily_to_api($address_types, $form_id)
+    function address_compatibily_to_api($address_types, $form_id) // TODO: Refactor as address_compatibility_to_api
     {
         $address_types["us"] = array(
             "label"       => "United States",
@@ -426,7 +437,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
     }
 
     /**
-     * gform validation
+     * Gravity Form Validate API Call
      *
      * @param $validation_result
      *

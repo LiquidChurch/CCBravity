@@ -3,6 +3,8 @@
 /**
  * CCB GRAVITY API Add Individual to Group
  *
+ * Adds an individual to a CCB Group using the CCB API.
+ *
  * @since 1.0.0
  * @package CCB Gravity Functionality
  */
@@ -13,6 +15,11 @@ class CCB_GRAVITY_api_add_individual_to_group extends CCB_GRAVITY_api_main
     protected $api_url = "";
     protected $api_fields;
 
+	/**
+	 * CCB_GRAVITY_api_add_individual_to_group constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
@@ -21,11 +28,11 @@ class CCB_GRAVITY_api_add_individual_to_group extends CCB_GRAVITY_api_main
 	/**
 	 * Gravity Forms API Map Error
 	 *
-	 * If it doesn't exist, die
+	 * If API Map doesn't exist, die
 	 */
     public function gform_api_map()
     {
-        die('need implementation');
+        die('need implementation'); // TODO: We need to handle this somehow.
     }
 
 	/**

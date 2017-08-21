@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CCB GRAVITY Session fetch data
+ * CCB GRAVITY Fetch Session Data
  *
  * @since 1.0.0
  * @package CCB Gravity Functionality
@@ -25,16 +25,22 @@ class CCB_GRAVITY_fetch_session_data extends CCB_GRAVITY_Abstract
 	/**
 	 * Get User Profile Data
 	 *
+	 * Processes the raw user data from CCB API and returns
+	 * an array containing relevant properties of individual.
+	 *
 	 * @param $raw_user_data_from_api
 	 *
-	 * @return array
+	 * @return array    $return
 	 */
     public static function get_user_profile_data($raw_user_data_from_api)
     {
         $return = array();
 
+        // Check if there is data in the API response
         if (isset($raw_user_data_from_api['ccb_api']['response']['individuals'])) {
+        	// Check that there is at least one individual in the API response
             if ($raw_user_data_from_api['ccb_api']['response']['individuals']['count'] != '0') {
+            	// Double check
                 if (isset($raw_user_data_from_api['ccb_api']['response']['individuals']['individual'])) {
                     self::$individual_profile = $raw_user_data_from_api['ccb_api']['response']['individuals']['individual'];
 
@@ -80,22 +86,30 @@ class CCB_GRAVITY_fetch_session_data extends CCB_GRAVITY_Abstract
     }
 
 	/**
-	 * Get User Groups Data
+	 * Get User Groups Data for Individual
+	 *
+	 * Processes raw data from CCB API regarding groups associated
+	 * with a single individual.
 	 *
 	 * @param $raw_groups_data_from_api
 	 *
-	 * @return array
+	 * @return array    $return
 	 */
     public static function get_user_groups_data($raw_groups_data_from_api) {
         $return = array();
 
+        // Check if there is data in the API response
         if (isset($raw_groups_data_from_api['ccb_api']['response']['individuals'])) {
+        	// Check if there is at least one individual in the API response
             if ($raw_groups_data_from_api['ccb_api']['response']['individuals']['count'] != '0') {
+            	// Double check
                 if (isset($raw_groups_data_from_api['ccb_api']['response']['individuals']['individual'])) {
                     self::$individual_group_profile = $raw_groups_data_from_api['ccb_api']['response']['individuals']['individual'];
 
+                    // Count the total number of groups associated w/individual.
                     $return['count'] = $total_group_count = self::check_is_val(self::$individual_group_profile, array('groups', 'count'));
 
+                    // Add to $return an array of groups associated w/individual.
                     for($i = 0; $i < $total_group_count; $i++) {
                         $return['group'][] = self::check_is_val(self::$individual_group_profile, array('groups', 'group', $i));
                     }
@@ -111,18 +125,23 @@ class CCB_GRAVITY_fetch_session_data extends CCB_GRAVITY_Abstract
 	 *
 	 * @param $raw_data_from_api
 	 *
-	 * @return array
+	 * @return array    $return
 	 */
     public static function get_user_group_participants_data($raw_data_from_api) {
         $return = array();
 
+        // Check if there is data in the API response
         if (isset($raw_data_from_api['ccb_api']['response']['groups'])) {
+        	// Check if there is at least one group in the API response
             if ($raw_data_from_api['ccb_api']['response']['groups']['count'] != '0') {
+            	// Double check
                 if (isset($raw_data_from_api['ccb_api']['response']['groups']['group'])) {
                     self::$group_participants = $raw_data_from_api['ccb_api']['response']['groups']['group'];
 
+                    // Count the total number of participants (individuals) in a group.
                     $return['count'] = $total_group_count = self::check_is_val(self::$group_participants, array('participants', 'count'));
 
+                    // Add to $return an array of participants associated w/group.
                     for($i = 0; $i < $total_group_count; $i++) {
                         $return['participant'][] = self::check_is_val(self::$group_participants, array('participants', 'participant', $i));
                     }

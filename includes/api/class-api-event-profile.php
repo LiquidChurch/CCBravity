@@ -13,11 +13,19 @@ class CCB_GRAVITY_api_event_profile extends CCB_GRAVITY_api_main
     protected $api_url = "";
     protected $api_fields;
 
+	/**
+	 * CCB_GRAVITY_api_event_profile constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
+	/**
+	 * Gravity Forms API Map
+	 */
     public function gform_api_map()
     {
         $this->map_fields();
@@ -26,11 +34,19 @@ class CCB_GRAVITY_api_event_profile extends CCB_GRAVITY_api_main
         $this->process_api_response();
     }
 
+	/**
+	 * Build the string for CCB API Call
+	 */
     public function mod_req_str() {
         $add_req_str = http_build_query($this->api_fields);
         $this->api_req_str .= '&' . $add_req_str;
     }
 
+	/**
+	 * Map Fields
+	 *
+	 * @return WP_Error
+	 */
     public function map_fields()
     {
         if (!isset($this->plugin->gravity_render->gform_api_field)) {
@@ -48,6 +64,9 @@ class CCB_GRAVITY_api_event_profile extends CCB_GRAVITY_api_main
         );
     }
 
+	/**
+	 * Call CCB API
+	 */
     public function call_ccb_api()
     {
         $this->api_url = $this->api_base . '?' . $this->api_req_str;

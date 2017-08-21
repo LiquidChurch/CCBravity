@@ -13,16 +13,27 @@ class CCB_GRAVITY_api_create_group extends CCB_GRAVITY_api_main
     protected $api_url = "";
     protected $api_fields;
 
+	/**
+	 * CCB_GRAVITY_api_create_group constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
+	/**
+	 * Gravity Forms API Map
+	 */
     public function gform_api_map()
     {
         die('need implementation');
     }
 
+	/**
+	 * Build CCB URL String
+	 */
     public function mod_req_str() {
         $add_req_str = http_build_query($this->api_fields);
         $this->api_req_str .= '&' . $add_req_str;
@@ -32,6 +43,9 @@ class CCB_GRAVITY_api_create_group extends CCB_GRAVITY_api_main
     {
     }
 
+	/**
+	 * Call CCB API
+	 */
     public function call_ccb_api()
     {
         $this->api_url = $this->api_base . '?' . $this->api_req_str;
@@ -51,6 +65,11 @@ class CCB_GRAVITY_api_create_group extends CCB_GRAVITY_api_main
 //        ccb_debug('add', array($this->api_name . ' -> raw_api_response', json_encode($this->api_response), 0, 'ccb-api-calls'));
     }
 
+	/**
+	 * Sync Create Group to CCB via API
+	 *
+	 * @param $data
+	 */
     public function ccb_sync_create_group($data) {
 
         $this->api_error = array();

@@ -74,7 +74,7 @@ class CCB_GRAVITY_Functionality
     /**
      * Singleton instance of plugin
      *
-     * @var CCB_GRAVITY_Functionality
+     * @var CCB_GRAVITY_Functionality   $single_instance
      * @since  1.0.0
      */
     protected static $single_instance = NULL;
@@ -82,7 +82,7 @@ class CCB_GRAVITY_Functionality
     /**
      * URL of plugin directory
      *
-     * @var string
+     * @var string  $url
      * @since  1.0.0
      */
     protected $url = '';
@@ -90,7 +90,7 @@ class CCB_GRAVITY_Functionality
     /**
      * Plugin basename
      *
-     * @var string
+     * @var string  $basename
      * @since  1.0.0
      */
     protected $basename = '';
@@ -99,14 +99,18 @@ class CCB_GRAVITY_Functionality
      * Instance of CCB_GRAVITY_Config_Page
      *
      * @since 1.0.0
-     * @var CCB_GRAVITY_Config_Page
+     * @var CCB_GRAVITY_Config_Page $config_page
      */
     protected $config_page;
+
+	/**
+	 * @var $gravity_mods
+	 */
     protected $gravity_mods;
 
 
     /**
-     * @var array
+     * @var array   $gform_enabled_ccb_services
      * @since 0.1.0
      */
     protected $gform_enabled_ccb_services = [
@@ -118,7 +122,7 @@ class CCB_GRAVITY_Functionality
     /**
      * Gravity Forms API Field Map
      *
-     * @var array
+     * @var array   $gform_api_field_map
      * @since 0.1.0
      */
     protected $gform_api_field_map = [];

@@ -3,6 +3,8 @@
 /**
  * CCB GRAVITY API Add Individual To Event
  *
+ * Adds an individual to an event using the CCB API.
+ *
  * @since   1.0.0
  * @package CCB Gravity Functionality
  */
@@ -54,6 +56,7 @@ class CCB_GRAVITY_api_add_to_event extends CCB_GRAVITY_api_main
 
 	/**
 	 * Map Gravity Forms / CCB Fields
+	 *
 	 * @return WP_Error
 	 */
     public function map_fields()

@@ -51,11 +51,21 @@ class CCB_GRAVITY_api_create_individual extends CCB_GRAVITY_api_main
         'creator_id'             => ['required' => FALSE],
     ];
 
+	/**
+	 * CCB_GRAVITY_api_create_individual constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
+	/**
+	 * Gravity Forms API Map
+	 *
+	 * @param bool $save_user_session
+	 */
     public function gform_api_map($save_user_session = FALSE)
     {
         $this->map_fields();
@@ -69,6 +79,11 @@ class CCB_GRAVITY_api_create_individual extends CCB_GRAVITY_api_main
         }
     }
 
+	/**
+	 * Map Fields
+	 *
+	 * @return WP_Error
+	 */
     public function map_fields()
     {
         if ( ! isset($this->plugin->gravity_render->gform_api_field))
@@ -100,6 +115,9 @@ class CCB_GRAVITY_api_create_individual extends CCB_GRAVITY_api_main
         }
     }
 
+	/**
+	 * Call CCB API
+	 */
     public function call_ccb_api()
     {
         $this->api_url  = $this->api_base . '?' . $this->api_req_str;
@@ -119,6 +137,11 @@ class CCB_GRAVITY_api_create_individual extends CCB_GRAVITY_api_main
 //        ccb_debug('add', array($this->api_name . ' -> raw_api_response', json_encode($this->api_response), 0, 'ccb-api-calls'));
     }
 
+	/**
+	 * Create a New Individual in CCB
+	 *
+	 * @return null
+	 */
     public function get_new_profile_id()
     {
         if (isset($this->api_response_arr['ccb_api']['response']['individuals']['individual']['id']))
@@ -129,6 +152,13 @@ class CCB_GRAVITY_api_create_individual extends CCB_GRAVITY_api_main
         return NULL;
     }
 
+	/**
+	 * Create a New Individual in CCB
+	 *
+	 * @param $data
+	 * @param $event
+	 * @param array $extra_data
+	 */
     public function ccb_sync_create_individual($data, $event, $extra_data = array())
     {
 

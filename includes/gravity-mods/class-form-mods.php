@@ -18,6 +18,9 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         parent::__construct($plugin);
     }
 
+	/**
+	 * Hooks
+	 */
     public function hooks()
     {
         /**
@@ -42,6 +45,9 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         add_action('admin_menu', array($this, 'add_admin_menu_page'));
     }
 
+	/**
+	 * Add Admin Menu Page
+	 */
     public function add_admin_menu_page()
     {
         add_submenu_page(
@@ -54,6 +60,9 @@ class CCB_GRAVITY_form_mods extends CCB_GRAVITY_Abstract
         );
     }
 
+    /**
+     * CCB Report Page
+     */
     function ccb_report_page()
     {
         $form_id = rgget('form_id');

@@ -152,6 +152,13 @@ class CCB_Shortcodes_Resources_Admin extends WDS_Shortcode_Admin
         return $fields;
     }
 
+	/**
+	 * Get Gravity Forms List
+	 *
+	 * @param bool $form_with_api_linked
+	 *
+	 * @return array
+	 */
     public function get_gform_list($form_with_api_linked = false)
     {
         $forms = GFAPI::get_forms();

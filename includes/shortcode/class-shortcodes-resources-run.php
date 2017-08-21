@@ -16,6 +16,11 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
 
     protected $plugin = null;
 
+	/**
+	 * CCB_Shortcodes_Resources_Run constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct();
@@ -24,14 +29,14 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
 
     /**
      * The Shortcode Tag
-     * @var string
+     * @var string $shortcode
      * @since 0.1.0
      */
     public $shortcode = 'ccb_gform';
 
     /**
      * Default attributes applied to the shortcode.
-     * @var array
+     * @var array   $atts_defaults
      * @since 0.1.0
      */
     public $atts_defaults = array(
@@ -60,6 +65,11 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
         return apply_filters('ccb_shortcode_output', $output, $this);
     }
 
+	/**
+	 * Shortcode
+	 *
+	 * @return string
+	 */
     protected function _shortcode()
     {
         $login_form_id = $this->att('login_form_id');
@@ -86,6 +96,13 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
         }
     }
 
+	/**
+	 * Get Gravity Form by ID
+	 *
+	 * @param string $form_id
+	 *
+	 * @return bool
+	 */
     public function get_gform($form_id = '')
     {
         if (empty($form_id)) {
@@ -95,6 +112,13 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
         return $form;
     }
 
+	/**
+	 * Process Login Form
+	 *
+	 * @param $login_form_id
+	 *
+	 * @return string
+	 */
     public function process_login_form($login_form_id)
     {
         if (CCB_GRAVITY_manage_session::if_user_logged_in()) {
@@ -115,6 +139,13 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
         }
     }
 
+	/**
+	 * Process User Form
+	 *
+	 * @param $user_form_id
+	 *
+	 * @return string
+	 */
     public function process_user_form($user_form_id)
     {
         $user_title = $this->att('user_form_title');

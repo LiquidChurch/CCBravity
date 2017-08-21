@@ -14,7 +14,7 @@ abstract class CCB_GRAVITY_api_main
     /**
      * Parent plugin class
      *
-     * @var   class $plugin
+     * @var   object $plugin
      * @since 1.0.0
      */
     protected $plugin = null;
@@ -32,6 +32,11 @@ abstract class CCB_GRAVITY_api_main
     protected $api_response = array();
     protected $valid_http_resp_code = array(200, 201);
 
+	/**
+	 * CCB_GRAVITY_api_main constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         $this->plugin = $plugin;
@@ -50,10 +55,14 @@ abstract class CCB_GRAVITY_api_main
     }
 
     /**
+     * Abstract Class: Gravity Forms API Map
      * gform map form with appropriate API call
      */
     public abstract function gform_api_map();
 
+	/**
+	 * Process API Response
+	 */
     protected function process_api_response()
     {
         $this->api_wp_error();
@@ -64,6 +73,9 @@ abstract class CCB_GRAVITY_api_main
         $this->after_xml_resp_to_array_check_nodata();
     }
 
+	/**
+	 * API WP Error
+	 */
     protected function api_wp_error()
     {
         if (is_wp_error($this->api_response)) {
@@ -78,6 +90,9 @@ abstract class CCB_GRAVITY_api_main
         }
     }
 
+    /**
+     * Get API HTTP Response Code
+     */
     protected function get_api_http_resp_code()
     {
         if (empty($this->api_error)) {
@@ -86,6 +101,9 @@ abstract class CCB_GRAVITY_api_main
         }
     }
 
+	/**
+	 * API HTTP Response Code Validation
+	 */
     protected function api_http_resp_code_validation()
     {
         if (!in_array($this->api_http_resp_code, $this->valid_http_resp_code)) {
@@ -99,6 +117,9 @@ abstract class CCB_GRAVITY_api_main
         }
     }
 
+	/**
+	 * Convert API XML Response to Array
+	 */
     protected function get_api_xml_resp_to_array()
     {
         if (empty($this->api_error)) {

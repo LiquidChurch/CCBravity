@@ -18,6 +18,9 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
         parent::__construct($plugin);
     }
 
+	/**
+	 * Hooks
+	 */
     public function hooks()
     {
         add_action('wp_ajax_check_api_user_logged_in', array($this, 'check_api_user_logged_in'));
@@ -34,6 +37,7 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
     }
 
 	/**
+	 * Sync Entry with CCB
 	 * @param null $entry_id
 	 */
     public function sync_entry_with_ccb($entry_id = NULL)
@@ -125,6 +129,9 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
         }
     }
 
+	/**
+	 * Get Individual Profile
+	 */
     public function get_individual_profile()
     {
         $api_response = $this->plugin->gravity_api_get_individual_profile->gform_api_map();
@@ -132,6 +139,9 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
         exit();
     }
 
+	/*
+	 * Get Group Participants
+	 */
     public function get_group_participants()
     {
         $group_id = isset($_POST['group_id']) ? $_POST['group_id'] : NULL;
@@ -161,6 +171,9 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
         exit();
     }
 
+	/**
+	 * Check API User Logged In
+	 */
     public function check_api_user_logged_in()
     {
         $response = array(

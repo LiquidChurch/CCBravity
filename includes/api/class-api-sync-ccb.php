@@ -13,7 +13,7 @@ class CCB_GRAVITY_api_sync_ccb
 	/**
 	 * CCB_GRAVITY_api_sync_ccb constructor.
 	 *
-	 * @param $plugin
+	 * @param object $plugin
 	 */
     public function __construct($plugin)
     {
@@ -27,6 +27,8 @@ class CCB_GRAVITY_api_sync_ccb
     }
 
 	/**
+	 * Sync Gravity Forms Data to CCB API
+	 *
 	 * @param $api_data
 	 * @param $api_events
 	 *
@@ -241,6 +243,13 @@ class CCB_GRAVITY_api_sync_ccb
         return $api_data;
     }
 
+	/**
+	 * Send Response After Single API Call Fail
+	 *
+	 * @param $error
+	 *
+	 * @return array
+	 */
     public function send_response_after_single_api_call_fail($error)
     {
         return array(
@@ -250,6 +259,13 @@ class CCB_GRAVITY_api_sync_ccb
         );
     }
 
+	/**
+	 * Get Individual ID
+	 *
+	 * @param $data
+	 *
+	 * @return null
+	 */
     public function get_individual_id($data)
     {
         if (isset($data['ccb_api']['response']['individuals']['individual']['id'])) {
@@ -259,6 +275,13 @@ class CCB_GRAVITY_api_sync_ccb
         return null;
     }
 
+	/**
+	 * Get Family ID
+	 *
+	 * @param $data
+	 *
+	 * @return null
+	 */
     public function get_family_id($data)
     {
         if (isset($data['ccb_api']['response']['individuals']['individual']['family']['id'])) {
@@ -268,6 +291,13 @@ class CCB_GRAVITY_api_sync_ccb
         return null;
     }
 
+	/**
+	 * Get Group ID
+	 *
+	 * @param $data
+	 *
+	 * @return null
+	 */
     public function get_group_id($data)
     {
         if (isset($data['ccb_api']['response']['groups']['group']['id'])) {
@@ -277,6 +307,14 @@ class CCB_GRAVITY_api_sync_ccb
         return null;
     }
 
+	/**
+	 * Sync Gravity Form Data - Add to Event
+	 *
+	 * @param $indv_data    Individual's Data
+	 * @param $evnt_data    Event's Data
+	 *
+	 * @return array
+	 */
     public function _sync_gform_data_add_to_event(&$indv_data, $evnt_data)
     {
 

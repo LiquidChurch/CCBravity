@@ -27,12 +27,13 @@ class CCB_GRAVITY_manage_session extends CCB_GRAVITY_Abstract
 	 */
     public static function save_api_login_session($api_resp_arr, $api_err, $extra_sess_val = array())
     {
+    	// If an error occurs, we didn't successfully login.
         if (!empty($api_err)) {
             $_SESSION['ccb_plugin'] = array(
                 'login_authenticated' => false,
                 'login_error' => $api_err,
             );
-        } else {
+        } else { // We successfully logged in, get profile data.
             $sess_arr = array_merge(array(
                 'login_authenticated' => true,
                 'user_profile' => CCB_GRAVITY_fetch_session_data::get_user_profile_data($api_resp_arr),
@@ -132,11 +133,17 @@ class CCB_GRAVITY_manage_session extends CCB_GRAVITY_Abstract
         return false;
     }
 
+	/**
+	 * Hooks
+	 */
     public function hooks()
     {
         $this->session_exist();
     }
 
+    /**
+     * Does a session exist currently? If not, start one.
+     */
     protected function session_exist()
     {
         if (!isset($_SESSION)) {

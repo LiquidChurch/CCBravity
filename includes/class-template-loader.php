@@ -145,7 +145,7 @@ class CCB_GRAVITY_Template_Loader {
 	 *
 	 * @param  string $template Template file to search for.
 	 *
-	 * @return void
+	 * @return string $located
 	 */
 	protected function _locate( $template ) {
 		$locations = apply_filters( "template_locations_for_{$this->template}", array(

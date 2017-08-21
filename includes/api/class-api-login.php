@@ -18,11 +18,19 @@ class CCB_GRAVITY_api_login extends CCB_GRAVITY_api_main
         'password' => ['required' => TRUE],
     ];
 
+	/**
+	 * CCB_GRAVITY_api_login constructor.
+	 *
+	 * @param $plugin
+	 */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
+	/**
+	 * Gravity Forms API Map
+	 */
     public function gform_api_map()
     {
         $this->map_fields();
@@ -31,6 +39,11 @@ class CCB_GRAVITY_api_login extends CCB_GRAVITY_api_main
         CCB_GRAVITY_manage_session::save_api_login_session($this->api_response_arr, $this->api_error);
     }
 
+	/**
+	 * Map Fields
+	 *
+	 * @return WP_Error
+	 */
     public function map_fields() {
         if(!isset($this->plugin->gravity_render->gform_api_field)) {
             return new WP_Error('not_found', 'Form Post fields are not present');
@@ -48,6 +61,9 @@ class CCB_GRAVITY_api_login extends CCB_GRAVITY_api_main
         );
     }
 
+	/**
+	 * Call CCB API
+	 */
     public function call_ccb_api()
     {
         $this->api_url = $this->api_base . '?' . $this->api_req_str;

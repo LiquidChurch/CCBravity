@@ -54,7 +54,7 @@ class CCB_GRAVITY_api_attendance_profile extends CCB_GRAVITY_api_main
 
         if (isset($event_profile['ccb_api']['response']['events']['event']['start_datetime'])) {
 
-            $event_occurence = date('Y-m-d', strtotime($event_profile['ccb_api']['response']['events']['event']['start_datetime']));
+            $event_occurence = date('Y-m-d', strtotime($event_profile['ccb_api']['response']['events']['event']['start_datetime'])); // TODO: Refactor as $event_occurrence
         } else {
             return new WP_Error('not_found', 'Event Occurrence not found');
         }

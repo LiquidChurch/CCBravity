@@ -4,14 +4,14 @@
             <p>
                 <?php
                 if (isset($_SESSION['ccb_plugin']['new_user_created']) && ($_SESSION['ccb_plugin']['new_user_created'] === true)) {
-                    echo __('A new user profile has been created for you, user details will be sent to you via email shortly.', 'ccb-gravity');
+                    echo __('A new user profile has been created for you, user details will be sent to you via email shortly.', 'ccb-gravity'); // TODO: Are we actually sending them an email? Or is this happening via CCB?
                     unset($_SESSION['ccb_plugin']['new_user_created']);
                 }
                 ?>
             </p>
             <p>
                 <?php
-                echo __('Thank you for registering for this event', 'ccb-gravity');
+                echo __('Thank you for registering for this event!', 'ccb-gravity'); // TODO: Need to flesh out this message, style.
 //                echo __('Thank you for registering to the event, if you want to register to another event, ' .
 //                    'then please click the link below link and submit the form again with the required details.', 'ccb-gravity');
                 ?>

@@ -25,12 +25,18 @@ class CCB_GRAVITY_action_handler extends CCB_GRAVITY_Abstract
         parent::__construct($plugin);
     }
 
+	/**
+	 * Hooks Function
+	 */
     public function hooks()
     {
         $this->set_action();
         $this->handle_action();
     }
 
+	/**
+	 * Set Action
+	 */
     public function set_action()
     {
         $action = sanitize_text_field(isset($_GET['ccb-action']) ? $_GET['ccb-action'] : '');
@@ -40,6 +46,9 @@ class CCB_GRAVITY_action_handler extends CCB_GRAVITY_Abstract
         $this->verify_nonce = $verify_nonce;
     }
 
+	/**
+	 * Handle Action
+	 */
     public function handle_action()
     {
         if ($this->verify_nonce()) {
