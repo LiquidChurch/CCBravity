@@ -35,15 +35,15 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-//define CCB_ENV
-// development
-// testing
+// Is this a Test Environment?
+// Development = No
+// Testing = Yes
 if (!defined('CCB_ENV'))
 {
     define('CCB_ENV', 'testing');
 }
 
-// User composer autoload.
+// Use composer to autoload.
 require __DIR__ . '/vendor/autoload.php';
 
 /**
@@ -55,18 +55,25 @@ class CCB_GRAVITY_Functionality
 {
 
     /**
-     * Current version
+     * Current Version Constant
      *
      * @var  string
      * @since  1.0.0
      */
     const VERSION                       = '1.0.0';
+
+	/**
+	 * CCB Community Group Leader ID Constant
+	 *
+	 * @var integer
+	 * @since 1.0.0
+	 */
     const CCB_COMMUNITY_GROUP_LEADER_ID = 35917; // TODO: Make this an option in Settings
 
     /**
      * Path of plugin directory
      *
-     * @var string
+     * @var string  $path
      * @since  1.0.0
      */
     public static $path = '';
@@ -90,6 +97,8 @@ class CCB_GRAVITY_Functionality
     /**
      * Plugin basename
      *
+     * This isn't currently utilized
+     *
      * @var string  $basename
      * @since  1.0.0
      */
@@ -98,18 +107,23 @@ class CCB_GRAVITY_Functionality
     /**
      * Instance of CCB_GRAVITY_Config_Page
      *
+     * Doesn't appear to be utilized currently.
+     *
      * @since 1.0.0
      * @var CCB_GRAVITY_Config_Page $config_page
      */
     protected $config_page;
 
 	/**
+	 * Gravity Mods
+	 *
 	 * @var $gravity_mods
 	 */
     protected $gravity_mods;
 
-
     /**
+     * Gravity Form Enabled CCB Services
+     *
      * @var array   $gform_enabled_ccb_services
      * @since 0.1.0
      */
@@ -128,6 +142,8 @@ class CCB_GRAVITY_Functionality
     protected $gform_api_field_map = [];
 
     /**
+     * CCBravity Constructor
+     *
      * Sets up our plugin
      *
      * @since  1.0.0
@@ -169,7 +185,7 @@ class CCB_GRAVITY_Functionality
      *
      * @return bool   Result of include call.
      */
-    public static function include_file($filename)
+    public static function include_file($filename) // TODO: Is this actually used anywhere?
     {
         $file = self::dir($filename . '.php');
         if (file_exists($file))
@@ -189,7 +205,7 @@ class CCB_GRAVITY_Functionality
      *
      * @return string       Directory and path
      */
-    public static function dir($path = '')
+    public static function dir($path = '')  // TODO: Is this actually used anywhere?
     {
         static $dir;
         $dir = $dir ? $dir : trailingslashit(dirname(__FILE__));
@@ -207,7 +223,7 @@ class CCB_GRAVITY_Functionality
     {
         if (class_exists("GFForms"))
         {
-
+			// Register Repeating Field Functionality for Gravity Forms
             new GFRepeater();
             GF_Fields::register(new GF_Field_Repeater());
             GF_Fields::register(new GF_Field_Repeater_End());
