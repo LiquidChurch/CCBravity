@@ -40,7 +40,7 @@
 // Testing = Yes
 if (!defined('CCB_ENV'))
 {
-    define('CCB_ENV', 'testing');
+    define('CCB_ENV', 'development');
 }
 
 // Use composer to autoload.

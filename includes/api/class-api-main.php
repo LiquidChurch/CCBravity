@@ -97,7 +97,7 @@ abstract class CCB_GRAVITY_api_main
     {
         if (empty($this->api_error)) {
             $this->api_http_resp_code = wp_remote_retrieve_response_code($this->api_response);
-            ccb_debug('add', array($this->api_name . ' -> api_http_resp_code', json_encode($this->api_http_resp_code), 0, 'ccb-api-calls'));
+//            ccb_debug('add', array($this->api_name . ' -> api_http_resp_code', json_encode($this->api_http_resp_code), 0, 'ccb-api-calls'));
         }
     }
 
@@ -226,9 +226,9 @@ abstract class CCB_GRAVITY_api_main
         if (!empty($api_resp['errors']['error'])) {
             $this->api_error = array(
                 'error_type' => 'api_error',
-                'error' => isset($api_resp['errors']['error']['number']) ? $api_resp['errors']['error']['number'] : '',
-                'error_code' => isset($api_resp['errors']['error']['type']) ? $api_resp['errors']['error']['type'] : '',
-                'error_msg' => isset($api_resp['errors']['error']['value']) ? $api_resp['errors']['error']['value'] : ''
+                'error' => isset($api_resp['errors']['error']['error']['number']) ? $api_resp['errors']['error']['error']['number'] : '',
+                'error_code' => isset($api_resp['errors']['error']['error']['type']) ? $api_resp['errors']['error']['error']['type'] : '',
+                'error_msg' => isset($api_resp['errors']['error']['error']['value']) ? $api_resp['errors']['error']['error']['value'] : ''
             );
             ccb_debug('add', array($this->api_name . ' -> api_response_error', json_encode($this->api_error), 0, 'ccb-api-calls'));
         }
