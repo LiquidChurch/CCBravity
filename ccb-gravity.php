@@ -38,7 +38,7 @@
 // Is this a Test Environment?
 // Development = No
 // Testing = Yes
-if (!defined('CCB_ENV'))
+if ( ! defined('CCB_ENV'))
 {
     define('CCB_ENV', 'development');
 }
@@ -60,20 +60,20 @@ class CCB_GRAVITY_Functionality
      * @var  string
      * @since  1.0.0
      */
-    const VERSION                       = '1.0.0';
+    const VERSION = '1.0.0';
 
-	/**
-	 * CCB Community Group Leader ID Constant
-	 *
-	 * @var integer
-	 * @since 1.0.0
-	 */
+    /**
+     * CCB Community Group Leader ID Constant
+     *
+     * @var integer
+     * @since 1.0.0
+     */
     const CCB_COMMUNITY_GROUP_LEADER_ID = 35917; // TODO: Make this an option in Settings
 
     /**
      * Path of plugin directory
      *
-     * @var string  $path
+     * @var string $path
      * @since  1.0.0
      */
     public static $path = '';
@@ -81,7 +81,7 @@ class CCB_GRAVITY_Functionality
     /**
      * Singleton instance of plugin
      *
-     * @var CCB_GRAVITY_Functionality   $single_instance
+     * @var CCB_GRAVITY_Functionality $single_instance
      * @since  1.0.0
      */
     protected static $single_instance = NULL;
@@ -89,7 +89,7 @@ class CCB_GRAVITY_Functionality
     /**
      * URL of plugin directory
      *
-     * @var string  $url
+     * @var string $url
      * @since  1.0.0
      */
     protected $url = '';
@@ -99,7 +99,7 @@ class CCB_GRAVITY_Functionality
      *
      * This isn't currently utilized
      *
-     * @var string  $basename
+     * @var string $basename
      * @since  1.0.0
      */
     protected $basename = '';
@@ -114,29 +114,30 @@ class CCB_GRAVITY_Functionality
      */
     protected $config_page;
 
-	/**
-	 * Gravity Mods
-	 *
-	 * @var $gravity_mods
-	 */
+    /**
+     * Gravity Mods
+     *
+     * @var $gravity_mods
+     */
     protected $gravity_mods;
 
     /**
      * Gravity Form Enabled CCB Services
      *
-     * @var array   $gform_enabled_ccb_services
+     * @var array $gform_enabled_ccb_services
      * @since 0.1.0
      */
     protected $gform_enabled_ccb_services = [
         'individual_profile_from_login_password' => 'User Login Form',
-        'add_individual_to_event'                => 'Individual Event Registration Form',
+        'add_individual_to_event'                => 'Add Individual to Event',
         'create_individual'                      => 'Create Individual',
+        'add_individual_to_group'                => 'Add Individual to Group',
     ];
 
     /**
      * Gravity Forms API Field Map
      *
-     * @var array   $gform_api_field_map
+     * @var array $gform_api_field_map
      * @since 0.1.0
      */
     protected $gform_api_field_map = [];
@@ -157,6 +158,7 @@ class CCB_GRAVITY_Functionality
             'individual_profile_from_login_password' => CCB_GRAVITY_api_login::$link_api_fields,
             'add_individual_to_event'                => CCB_GRAVITY_api_add_to_event::$link_api_fields,
             'create_individual'                      => CCB_GRAVITY_api_create_individual::$link_api_fields,
+            'add_individual_to_group'                => CCB_GRAVITY_api_add_individual_to_group::$link_api_fields,
         ];
     }
 
@@ -223,7 +225,7 @@ class CCB_GRAVITY_Functionality
     {
         if (class_exists("GFForms"))
         {
-			// Register Repeating Field Functionality for Gravity Forms
+            // Register Repeating Field Functionality for Gravity Forms
             new GFRepeater();
             GF_Fields::register(new GF_Field_Repeater());
             GF_Fields::register(new GF_Field_Repeater_End());
@@ -335,7 +337,8 @@ class CCB_GRAVITY_Functionality
         if (is_admin())
         {
             $this->gravity_mods = new CCB_GRAVITY_form_mods($this);
-        } else
+        }
+        else
         {
             $this->gravity_render                = new CCB_GRAVITY_form_render($this);
             $this->gravity_api_login             = new CCB_GRAVITY_api_login($this);
@@ -354,12 +357,12 @@ class CCB_GRAVITY_Functionality
     }
 
 
-	/**
-	 * Add Developer Classes
-	 *
-	 * These are classes that are only included if the environment has been set to development
-	 *
-	 */
+    /**
+     * Add Developer Classes
+     *
+     * These are classes that are only included if the environment has been set to development
+     *
+     */
     public function add_dev_classes()
     {
         if (defined('CCB_ENV') && CCB_ENV == 'development')
@@ -372,9 +375,9 @@ class CCB_GRAVITY_Functionality
         include __DIR__ . '/dev/Logging_Mods.php';
     }
 
-	/**
-	 * Enqueue Our Scripts
-	 */
+    /**
+     * Enqueue Our Scripts
+     */
     protected function enque_script() // TODO: Change to enqueue_script
     {
         $admin_page = rgget('page');
@@ -395,7 +398,8 @@ class CCB_GRAVITY_Functionality
                 array('jquery'),
                 CCB_GRAVITY_Functionality::VERSION
             );
-        } else if (in_array($admin_page, array('ccb_report')))
+        }
+        else if (in_array($admin_page, array('ccb_report')))
         {
 
             wp_enqueue_script(
@@ -431,9 +435,9 @@ class CCB_GRAVITY_Functionality
         return $url . $path;
     }
 
-	/**
-	 * Enqueue Styles
-	 */
+    /**
+     * Enqueue Styles
+     */
     protected function enque_style() // TODO: Change to enqueue_style
     {
         $admin_page = rgget('page');
@@ -449,7 +453,8 @@ class CCB_GRAVITY_Functionality
                 CCB_GRAVITY_Functionality::VERSION
             );
 
-        } else if (in_array($admin_page, array('ccb_report')))
+        }
+        else if (in_array($admin_page, array('ccb_report')))
         {
 
             wp_enqueue_style(

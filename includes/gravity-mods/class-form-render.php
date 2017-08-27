@@ -317,6 +317,10 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
                 {
                     $field_content = str_replace('name=', "ccb-field='" . $item . "' name=", $field_content);
 
+                    global $post;
+                    global $wp;
+                    $current_url = home_url(add_query_arg(array(), $wp->request));
+
                     $prefill_val = '';
 
                     if ($item == 'create_individual.email')
@@ -331,9 +335,6 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
                     }
                     else if ($item == 'add_individual_to_event.event_id')
                     {
-                        global $post;
-                        global $wp;
-                        $current_url = home_url(add_query_arg(array(), $wp->request));
                         $event_id    = NULL;
                         if (isset($post->post_type) && $post->post_type == 'lo-events')
                         {
@@ -345,6 +346,19 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
                     else if ($item == 'add_individual_to_event.id')
                     {
                         $prefill_val = isset($user_profile['individual.id']) ? $user_profile['individual.id'] : '';
+                    }
+                    else if ($item == 'add_individual_to_group.id')
+                    {
+                        $prefill_val = isset($user_profile['individual.id']) ? $user_profile['individual.id'] : '';
+                    }
+                    else if ($item == 'add_individual_to_group.group_id')
+                    {
+                        $group_id    = NULL;
+                        if (isset($post->post_type) && $post->post_type == 'lo-events')
+                        {
+                            $group_id = get_post_meta($post->ID, 'lo_ccb_events_group_id', TRUE);
+                        }
+                        $prefill_val = ! empty($group_id) ? $group_id : $current_url;
                     }
 
                     if ( ! empty($prefill_val))
@@ -969,22 +983,25 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
             }
             else
             {
-
                 $ccbField = $field['ccbField'];
             }
 
+            // *********** processing values for add_individual_to_event *************** //
             if (in_array('add_individual_to_event.id', $ccbField))
             {
-
-                $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('individual_id' => rgar($entry, $field['id'])));
-
+                $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('event_individual_id' => rgar($entry, $field['id'])));
             }
             else if (in_array('add_individual_to_event.event_id', $ccbField))
             {
-
                 $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('event_id' => rgar($entry, $field['id'])));
-
             }
+            else if (in_array('add_individual_to_event.status', $ccbField))
+            {
+                $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('event_status' => rgar($entry, $field['id'])));
+            }
+
+
+            // *********** processing values for create_individual *************** //
             else if (in_array('create_individual.first_name', $ccbField))
             {
                 //@todo:: make entry id dynamic array('first_name' => rgar($entry, 1.3))
@@ -994,14 +1011,11 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
                 {
                     //@todo:: make entry id dynamic array('last_name' => rgar($entry, 1.6))
                     $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('last_name' => rgar($entry, '1.6')));
-
                 }
             }
             else if (in_array('create_individual.email', $ccbField))
             {
-
                 $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('email' => rgar($entry, $field['id'])));
-
             }
             else if (
                 in_array('create_individual.contact_phone', $ccbField) ||
@@ -1010,10 +1024,32 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
                 in_array('create_individual.mobile_phone', $ccbField)
             )
             {
-
                 $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('phone' => rgar($entry, $field['id'])));
+            }
+
+
+            // *********** processing values for add_individual_to_group *************** //
+            else if (in_array('add_individual_to_group.id', $ccbField))
+            {
+
+                $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('group_individual_id' => rgar($entry, $field['id'])));
 
             }
+            else if (in_array('add_individual_to_group.group_id', $ccbField))
+            {
+
+                $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('group_id' => rgar($entry, $field['id'])));
+
+            }
+            else if (in_array('add_individual_to_group.status', $ccbField))
+            {
+
+                $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('group_status' => rgar($entry, $field['id'])));
+
+            }
+
+
+            //below conditions may need modifications
             else if (in_array('individual.member.ids', $ccbField))
             {
 
@@ -1036,12 +1072,6 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
             {
 
                 $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('family_id' => rgar($entry, $field['id'])));
-
-            }
-            else if (in_array('individual.group.id', $ccbField))
-            {
-
-                $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('group_id' => rgar($entry, $field['id'])));
 
             }
             else if (in_array('ccb.individual.data', $ccbField))

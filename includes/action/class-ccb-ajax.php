@@ -8,19 +8,19 @@
  */
 class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
 {
-	/**
-	 * CCB_GRAVITY_ajax_handler constructor.
-	 *
-	 * @param object $plugin
-	 */
+    /**
+     * CCB_GRAVITY_ajax_handler constructor.
+     *
+     * @param object $plugin
+     */
     public function __construct($plugin)
     {
         parent::__construct($plugin);
     }
 
-	/**
-	 * Hooks
-	 */
+    /**
+     * Hooks
+     */
     public function hooks()
     {
         add_action('wp_ajax_check_api_user_logged_in', array($this, 'check_api_user_logged_in'));
@@ -36,10 +36,11 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
 
     }
 
-	/**
-	 * Sync Entry with CCB
-	 * @param null $entry_id
-	 */
+    /**
+     * Sync Entry with CCB
+     *
+     * @param null $entry_id
+     */
     public function sync_entry_with_ccb($entry_id = NULL)
     {
 
@@ -75,42 +76,41 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
             'individual_family'          => FALSE,
             'individual_group'           => FALSE,
             'individual_community_group' => FALSE,
+            'add_individual_to_group'    => FALSE,
         );
 
-        if (empty($primary_data['individual_id']))
+        if (empty($primary_data['event_individual_id']))
         {
             $api_events['create_primary_individual'] = TRUE;
         }
 
+        if ( ! empty($primary_data['group_individual_id']) && ! empty($primary_data['group_id']))
+        {
+            $api_events['add_individual_to_group'] = TRUE;
+        }
+
         if (empty($primary_data['register_type']) || $primary_data['register_type'] == 'individual')
         {
-
             $api_events['individual_only'] = TRUE;
-
         }
         else if ($primary_data['register_type'] == 'family')
         {
-
             $api_events['individual_family'] = TRUE;
-
         }
         else if ($primary_data['register_type'] == 'liquid_group')
         {
-
             $api_events['individual_group'] = TRUE;
-
         }
         else if ($primary_data['register_type'] == 'community_group')
         {
-
             $api_events['individual_community_group'] = TRUE;
-
         }
 
         if (empty($api_data_backup))
         {
             gform_update_meta($entry_id, 'api_data_before_sync', $api_data);
         }
+
         $api_data = $this->plugin->gravity_api_sync_ccb->sync_gform_data_ccb_api($api_data, $api_events);
         gform_update_meta($entry_id, 'api_data', $api_data);
 
@@ -129,9 +129,9 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
         }
     }
 
-	/**
-	 * Get Individual Profile
-	 */
+    /**
+     * Get Individual Profile
+     */
     public function get_individual_profile()
     {
         $api_response = $this->plugin->gravity_api_get_individual_profile->gform_api_map();
@@ -139,9 +139,9 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
         exit();
     }
 
-	/*
-	 * Get Group Participants
-	 */
+    /*
+     * Get Group Participants
+     */
     public function get_group_participants()
     {
         $group_id = isset($_POST['group_id']) ? $_POST['group_id'] : NULL;
@@ -171,9 +171,9 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
         exit();
     }
 
-	/**
-	 * Check API User Logged In
-	 */
+    /**
+     * Check API User Logged In
+     */
     public function check_api_user_logged_in()
     {
         $response = array(
