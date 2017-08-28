@@ -245,7 +245,7 @@ abstract class CCB_GRAVITY_api_main
                 'error_type' => 'api_error',
                 'error' => __('no data', 'ccb-gravity'),
                 'error_code' => __('no data', 'ccb-gravity'),
-                'error_msg' => __('No data found!!!', 'ccb-gravity')
+                'error_msg' => __('Sorry, we were unable to locate your account. Please try again or send us an email at ithelp@liquidchurch.com. Thank you!', 'ccb-gravity')
             );
             ccb_debug('add', array($this->api_name . ' -> api_response_nodata_error', json_encode($this->api_error), 0, 'ccb-api-calls'));
         }
