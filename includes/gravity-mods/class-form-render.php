@@ -419,7 +419,8 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
         $this->gform_ccb_api_settings = $this->_get_gform_ccb_api_settings();
 
         $args = array(
-            'form_id' => $form['id']
+            'form_id' => $form['id'],
+            'default_confirmation' => strip_tags($confirmation),
         );
 
         return CCB_GRAVITY_Template_Loader::get_template('gform/ccb-gform-add-to-event-confirm', $args);

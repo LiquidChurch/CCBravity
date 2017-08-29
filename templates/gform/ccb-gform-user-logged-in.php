@@ -3,7 +3,7 @@
         <div class="ccb-logged-in">
             <?php
             $user_data       = $this->get('user_data');
-            $welcome_message = sprintf(__('<h4>Welcome %s, For event registration please fill out the below form.</h4>', 'ccb-gravity'), $user_data['individual.full_name']);
+            $welcome_message = sprintf(__('<h3>Welcome %s.</h3>', 'ccb-gravity'), $user_data['individual.full_name']);
             echo $welcome_message;
             ?>
             <p style="padding-left: 0;">

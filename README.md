@@ -12,3 +12,12 @@ The following third party components are utilized by (and integrated into) CCBra
 In addition, the following are required by (but not included in) CCBravity:
 1. [Gravity Forms WordPress Plugin](http://www.gravityforms.com/)
 1. [Church Community Builder API Account](https://www.churchcommunitybuilder.com/)
+
+# Changelog
+1. Integrate with Gravity Forms <--> Liquid Outreach. [1.1.0]
+2. Log integration. [1.1.1]
+3. Fixes for auto checking remaining events for Outreaach event post. [1.2.0]
+4. fix for create_individual when new individual trying to add themselves to the event. [1.2.1]
+5. CCB API sync modifications. [1.3.0]
+6. Error Handling: Messaging on Login. [1.3.1]
+7. Upon Successful Registration: Thank You Message [1.3.2]
