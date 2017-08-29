@@ -42,19 +42,12 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
      * @since 0.1.0
      */
     public $atts_defaults = array(
-        //login form
-        'login_form_id'          => '', // ID of the gform
-        'login_form_title'       => 'true', // Title for the gform
-        'login_form_description' => 'true', // Description for the gform
-        'login_form_ajax'        => 'true', // is Ajax gform
-        'login_form_tabindex'    => '', // Tabindex the gform
-
-        //user form
-        'user_form_id'           => '', // Tabindex the gform
-        'user_form_title'        => 'true', // Title for the gform
-        'user_form_description'  => 'true', // Description for the gform
-        'user_form_ajax'         => 'true', // is Ajax gform
-        'user_form_tabindex'     => '', // Tabindex the gform
+        'id'          => '', // ID of the gform
+        'title'       => 'true', // Title for the gform
+        'description' => 'true', // Description for the gform
+        'ajax'        => 'true', // is Ajax gform
+        'tabindex'    => '', // Tabindex the gform
+        'form_type'   => '', // form_type for the gform
     );
 
     /**
@@ -74,21 +67,28 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
      */
     protected function _shortcode()
     {
-        $login_form_id = $this->att('login_form_id');
-        $login_form    = $this->get_gform($login_form_id);
+        $user_login_form         = FALSE;
+        $event_registration_form = FALSE;
+        $form_id                 = $this->att('id');
+        $form_type               = $this->att('form_type');
+        if ($form_type == 'login_form')
+        {
+            $user_login_form = TRUE;
+        }
+        else if ($form_type == 'event_registration_form')
+        {
+            $event_registration_form = TRUE;
+        }
 
-        $user_form_id = $this->att('user_form_id');
-        $user_form    = $this->get_gform($user_form_id);
-
-        if (empty($login_form) || empty($user_form))
+        if (empty($user_login_form) && empty($event_registration_form))
         {
             echo __('Notice - Please select both the login and user form from the shortcode options', 'ccb-gravity');
         }
         else
         {
             $args = array(
-                'gform_login'               => $this->process_login_form($login_form_id),
-                'gform_user'                => $this->process_user_form($user_form_id),
+                'form_type'                 => $form_type,
+                'gform'                     => ! empty($user_login_form) ? $this->process_login_form($form_id) : $this->process_user_form($form_id),
                 'autofill_btn'              => CCB_GRAVITY_Template_Loader::get_template('gform/ccb-gform-autofill'),
                 'login_authenticated'       => isset($_SESSION['ccb_plugin']['login_authenticated']) ? $_SESSION['ccb_plugin']['login_authenticated'] : FALSE,
                 'user_profile_data'         => isset($_SESSION['ccb_plugin']['user_profile']) ? $_SESSION['ccb_plugin']['user_profile'] : array(),
@@ -126,7 +126,7 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
      *
      * @return string
      */
-    public function process_login_form($login_form_id)
+    public function process_login_form($form_id)
     {
         if (CCB_GRAVITY_manage_session::if_user_logged_in())
         {
@@ -138,18 +138,18 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
         }
         else
         {
-            $login_title       = $this->att('login_form_title');
-            $login_description = $this->att('login_form_description');
-            $login_ajax        = $this->att('login_form_ajax');
-            $login_tabindex    = $this->att('login_form_tabindex');
-            if (empty($login_tabindex))
+            $title       = $this->att('title');
+            $description = $this->att('description');
+            $ajax        = $this->att('ajax');
+            $tabindex    = $this->att('tabindex');
+            if (empty($tabindex))
             {
-                $login_tabindex = 1;
+                $tabindex = 1;
             }
-            $login_gform_shortcode_str = sprintf('[gravityform id=%s title=%s description=%s ajax=%s tabindex=%s]', $login_form_id, $login_title, $login_description, 'false', $login_tabindex);
-            $login_gform_shortcode     = do_shortcode($login_gform_shortcode_str);
+            $gform_shortcode_str = sprintf('[gravityform id=%s title=%s description=%s ajax=%s tabindex=%s]', $form_id, $title, $description, 'false', $tabindex);
+            $gform_shortcode     = do_shortcode($gform_shortcode_str);
 
-            return $login_gform_shortcode;
+            return $gform_shortcode;
         }
     }
 
@@ -160,27 +160,29 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
      *
      * @return string
      */
-    public function process_user_form($user_form_id)
+    public function process_user_form($form_id)
     {
-        $user_title = $this->att('user_form_title');
+        $title    = $this->att('title');
+        $ajax     = $this->att('ajax');
+        $tabindex = $this->att('tabindex');
+
         if (CCB_GRAVITY_manage_session::if_user_logged_in())
         {
-            $user_description = $this->att('user_form_description');
+            $description = $this->att('description');
         }
         else
         {
-            $user_description = 'true';
+            $description = '';
         }
-        $user_ajax     = $this->att('user_form_ajax');
-        $user_tabindex = $this->att('user_form_tabindex');
-        if (empty($user_tabindex))
-        {
-            $user_tabindex = 10;
-        }
-        $user_gform_shortcode_str = sprintf('[gravityform id=%s title=%s description=%s ajax=%s tabindex=%s]', $user_form_id, $user_title, $user_description, 'false', $user_tabindex);
-        $user_gform_shortcode     = do_shortcode($user_gform_shortcode_str);
 
-        return $user_gform_shortcode;
+        if (empty($tabindex))
+        {
+            $tabindex = 10;
+        }
+        $gform_shortcode_str = sprintf('[gravityform id=%s title=%s description=%s ajax=%s tabindex=%s]', $form_id, $title, $description, $ajax, $tabindex);
+        $gform_shortcode     = do_shortcode($gform_shortcode_str);
+
+        return $gform_shortcode;
     }
 
 }

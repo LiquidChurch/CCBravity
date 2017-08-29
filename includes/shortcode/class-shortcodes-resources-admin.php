@@ -79,7 +79,7 @@ class CCB_Shortcodes_Resources_Admin extends WDS_Shortcode_Admin
         $fields[] = array(
             'name' => __('Login Form Title', 'ccb-gravity'),
             'desc' => __('Toggle form title', 'ccb-gravity'),
-            'id' => 'login_form_title',
+            'id' => 'title',
             'type' => 'checkbox',
             'default' => true
         );
@@ -87,7 +87,7 @@ class CCB_Shortcodes_Resources_Admin extends WDS_Shortcode_Admin
         $fields[] = array(
             'name' => __('Login Form Description', 'ccb-gravity'),
             'desc' => __('Toggle form description', 'ccb-gravity'),
-            'id' => 'login_form_description',
+            'id' => 'description',
             'type' => 'checkbox',
             'default' => true
         );
@@ -95,7 +95,7 @@ class CCB_Shortcodes_Resources_Admin extends WDS_Shortcode_Admin
 //        $fields[] = array(
 //            'name' => __('Login Form Ajax Submit', 'ccb-gravity'),
 //            'desc' => __('Form will be submitted via ajax ?', 'ccb-gravity'),
-//            'id' => 'login_form_ajax',
+//            'id' => 'ajax',
 //            'type' => 'checkbox',
 //            'default' => true
 //        );
@@ -104,49 +104,20 @@ class CCB_Shortcodes_Resources_Admin extends WDS_Shortcode_Admin
             'name' => __('Login Form Tabindex', 'ccb-gravity'),
             'desc' => __('Tabindex for the form', 'ccb-gravity'),
             'default' => '',
-            'id' => 'login_form_tabindex',
+            'id' => 'tabindex',
             'type' => 'text_number',
         );
 
         $fields[] = array(
-            'name' => __('User Form', 'ccb-gravity'),
-            'desc' => __('Select User Form', 'ccb-gravity'),
-            'id' => 'user_form_id',
+            'name' => __('Form Type', 'ccb-gravity'),
+            'desc' => __('What is the form purpose!', 'ccb-gravity'),
+            'id' => 'form_type',
             'type' => 'select',
-            'default' => '',
-            'options' => $this->get_gform_list(true),
-        );
-
-        $fields[] = array(
-            'name' => __('User Form Title', 'ccb-gravity'),
-            'desc' => __('Toggle form title', 'ccb-gravity'),
-            'id' => 'user_form_title',
-            'type' => 'checkbox',
-            'default' => true
-        );
-
-        $fields[] = array(
-            'name' => __('User Form Description', 'ccb-gravity'),
-            'desc' => __('Toggle form description', 'ccb-gravity'),
-            'id' => 'user_form_description',
-            'type' => 'checkbox',
-            'default' => true
-        );
-
-//        $fields[] = array(
-//            'name' => __('User Form Ajax Submit', 'ccb-gravity'),
-//            'desc' => __('Form will be submitted via ajax ?', 'ccb-gravity'),
-//            'id' => 'user_form_ajax',
-//            'type' => 'checkbox',
-//            'default' => true
-//        );
-
-        $fields[] = array(
-            'name' => __('User Form Tabindex', 'ccb-gravity'),
-            'desc' => __('Tabindex for the form', 'ccb-gravity'),
-            'default' => '',
-            'id' => 'user_form_tabindex',
-            'type' => 'text_number',
+            'default' => 'login_form',
+            'options' => array(
+                'login_form',
+                'event_registration_form',
+            ),
         );
 
         return $fields;
