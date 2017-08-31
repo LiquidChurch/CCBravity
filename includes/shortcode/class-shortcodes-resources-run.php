@@ -97,7 +97,18 @@ class CCB_Shortcodes_Resources_Run extends WDS_Shortcodes
                 'gform_submitted_ccb_field' => $this->plugin->gravity_render->gform_api_field,
             );
 
-            return CCB_GRAVITY_Template_Loader::get_template('gform/ccb-gform-shortcode', $args);
+            if ( ! empty($user_login_form))
+            {
+                return CCB_GRAVITY_Template_Loader::get_template('gform/ccb-gform-login', $args);
+            }
+            else if ( ! empty($event_registration_form))
+            {
+                return CCB_GRAVITY_Template_Loader::get_template('gform/ccb-gform-event-registration', $args);
+            }
+            else
+            {
+                __('Invalid form type selected', 'ccb-gravity');
+            }
         }
     }
 

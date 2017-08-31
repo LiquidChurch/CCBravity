@@ -78,8 +78,19 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
         add_action('gform_after_submission', array($this, 'gform_after_submission'), 5, 2);
 
         add_filter('gform_validation', array($this, 'gform_validation_api_call'), 10);
+
+
         add_filter('gform_pre_render', array($this, 'gform_pre_render'), 10);
+        //Note: when changing choice values, we also need to use the gform_pre_validation so that the new values are available when validating the field.
+        add_filter('gform_pre_validation', array($this, 'gform_pre_render'), 10);
+        //Note: when changing choice values, we also need to use the gform_admin_pre_render so that the right values are displayed when editing the entry.
+        add_filter('gform_admin_pre_render', array($this, 'gform_pre_render'), 10);
+        //Note: this will allow for the labels to be used during the submission process in case values are enabled
+        add_filter('gform_pre_submission_filter', array($this, 'gform_pre_render'), 10);
+
+
         add_filter('gform_field_content', array($this, 'gform_add_custom_attr'), 10, 5);
+
         add_filter('gform_disable_notification', array($this, 'gform_disable_notification'), 10, 4);
         add_filter("gform_address_types", array($this, "address_compatibily_to_api"), 10, 2);
 
@@ -335,7 +346,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
                     }
                     else if ($item == 'add_individual_to_event.event_id')
                     {
-                        $event_id    = NULL;
+                        $event_id = NULL;
                         if (isset($post->post_type) && $post->post_type == 'lo-events')
                         {
                             $event_id = get_post_meta($post->ID, 'lo_ccb_events_ccb_event_id', TRUE);
@@ -347,13 +358,17 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
                     {
                         $prefill_val = isset($user_profile['individual.id']) ? $user_profile['individual.id'] : '';
                     }
+                    else if ($item == 'add_individual_to_event.family_individual_ids')
+                    {
+                        $prefill_val = isset($user_profile['individual.id']) ? $user_profile['individual.id'] : '';
+                    }
                     else if ($item == 'add_individual_to_group.id')
                     {
                         $prefill_val = isset($user_profile['individual.id']) ? $user_profile['individual.id'] : '';
                     }
                     else if ($item == 'add_individual_to_group.group_id')
                     {
-                        $group_id    = NULL;
+                        $group_id = NULL;
                         if (isset($post->post_type) && $post->post_type == 'lo-events')
                         {
                             $group_id = get_post_meta($post->ID, 'lo_ccb_events_group_id', TRUE);
@@ -392,12 +407,95 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
 
         if ($this->gform_ccb_api_settings == 'add_individual_to_event')
         {
-            if (CCB_GRAVITY_manage_session::if_user_logged_in())
-            {
+//            if (CCB_GRAVITY_manage_session::if_user_logged_in())
+//            {
 //                $args = array();
 //                $this->gform_form['description'] = CCB_GRAVITY_Template_Loader::get_template('gform/ccb-gform-autofill', $args);
-                $this->gform_form['description'] = '';
+//
+//                $this->gform_form['description'] = '';
+//            }
+
+            foreach ($this->gform_form['fields'] as $index => &$field)
+            {
+                if (isset($field->ccbField))
+                {
+                    if (in_array('add_individual_to_event.family_individual_ids', $field->ccbField))
+                    {
+                        $items    = array();
+                        $inputs   = array();
+                        $input_id = 1;
+
+                        if ( ! empty($_SESSION['ccb_plugin']['user_profile']['individual.family_members']['family_member']))
+                        {
+                            $family_members = $_SESSION['ccb_plugin']['user_profile']['individual.family_members']['family_member'];
+                            if (isset($family_members['individual']))
+                            {
+                                $items[]  = array('text' => $family_members['individual']['value'], 'value' => $family_members['individual']['id']);
+                                $inputs[] = array('label' => $family_members['individual']['value'], 'id' => "{$field->id}.{$input_id}");
+                            }
+                            else
+                            {
+                                foreach ($family_members as $index => $family_member)
+                                {
+                                    if ($input_id % 10 == 0)
+                                    {
+                                        $input_id++;
+                                    }
+
+                                    $items[]  = array('text' => $family_member['individual']['value'], 'value' => $family_member['individual']['id']);
+                                    $inputs[] = array('label' => $family_member['individual']['value'], 'id' => "{$field->id}.{$input_id}");
+
+                                    $input_id++;
+                                }
+                            }
+                        }
+
+                        if (empty($items))
+                        {
+//                            unset($this->gform_form['fields'][$index]);
+                        }
+                        else
+                        {
+                            $field->choices = $items;
+                            $field->inputs  = $inputs;
+                        }
+                    }
+                    else if (in_array('add_individual_to_event.list_groups', $field->ccbField))
+                    {
+                        $items    = array();
+                        $inputs   = array();
+                        $input_id = 1;
+
+                        if ( ! empty($_SESSION['ccb_plugin']['user_groups']['group']))
+                        {
+                            $groups = $_SESSION['ccb_plugin']['user_groups']['group'];
+                            foreach ($groups as $index => $group)
+                            {
+                                if ($input_id % 10 == 0)
+                                {
+                                    $input_id++;
+                                }
+
+                                $items[]  = array('text' => $group['name'], 'value' => $group['group_id']);
+                                $inputs[] = array('label' => $group['name'], 'id' => "{$field->id}.{$input_id}");
+
+                                $input_id++;
+                            }
+                        }
+
+                        if (empty($items))
+                        {
+//                            unset($this->gform_form['fields'][$index]);
+                        }
+                        else
+                        {
+                            $field->choices = $items;
+                            $field->inputs  = $inputs;
+                        }
+                    }
+                }
             }
+
         }
 
         return $this->gform_form;
@@ -419,7 +517,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
         $this->gform_ccb_api_settings = $this->_get_gform_ccb_api_settings();
 
         $args = array(
-            'form_id' => $form['id'],
+            'form_id'              => $form['id'],
             'default_confirmation' => strip_tags($confirmation),
         );
 
@@ -511,10 +609,8 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
 
             foreach ($this->gform_form['fields'] as $index => $item)
             {
-
                 if (key_exists('ccbField', $item))
                 {
-
                     if (is_a($item, 'GF_Field_Repeater'))
                     {
 
@@ -582,15 +678,25 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
 
                                 foreach ($repeaterChildren[$item['id']]['input_' . $v['id']] as $rcindex => $repeaterChild)
                                 {
-
                                     $input_id[$ccbField[$ccbIndex]][] = $repeaterChild;
                                 }
 
                             }
                             else
                             {
+                                if (in_array($ccbField[0], ["add_individual_to_event.list_groups"]))
+                                {
+                                    $input_id[$ccbField[0]] = 'input_' . str_replace('.', '_', $v['id']);
+                                }
+                                else if (in_array($ccbField[0], ["add_individual_to_event.family_individual_ids"]))
+                                {
+                                    $input_id[$ccbField[0]][] = 'input_' . str_replace('.', '_', $v['id']);
+                                }
+                                else
+                                {
+                                    $input_id[$ccbField[$ccbIndex]] = 'input_' . str_replace('.', '_', $v['id']);
+                                }
 
-                                $input_id[$ccbField[$ccbIndex]] = 'input_' . str_replace('.', '_', $v['id']);
                             }
 
                             $ccbIndex++;
@@ -656,7 +762,6 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
                         }
                     }
                 }
-
             }
 
         }
@@ -736,11 +841,11 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
         $this->plugin->gravity_api_individual_groups->gform_api_map();
     }
 
-	/**
-	 * Check Event Limit
-	 *
-	 * @return array
-	 */
+    /**
+     * Check Event Limit
+     *
+     * @return array
+     */
     public function _check_event_limit()
     {
         $api_error           = FALSE;
@@ -999,6 +1104,18 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
             else if (in_array('add_individual_to_event.status', $ccbField))
             {
                 $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('event_status' => rgar($entry, $field['id'])));
+            }
+            else if (in_array('add_individual_to_event.family_individual_ids', $ccbField))
+            {
+                $ids = [];
+                if ( ! empty($field['inputs']) && is_array($field['inputs']))
+                {
+                    foreach ($field['inputs'] as $index => $input)
+                    {
+                        $ids[] = rgar($entry, $input['id']);
+                    }
+                }
+                $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('family_individual_ids' => json_encode($ids)));
             }
 
 

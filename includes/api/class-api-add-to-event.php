@@ -16,9 +16,12 @@ class CCB_GRAVITY_api_add_to_event extends CCB_GRAVITY_api_main
     protected $api_fields;
 
     public static $link_api_fields = [
-        'id'       => ['required' => TRUE],
-        'event_id' => ['required' => TRUE],
-        'status'   => [
+        'id'                    => ['required' => TRUE],
+        'event_id'              => ['required' => TRUE],
+        'family_individual_ids' => ['required' => FALSE],
+        'group_individual_ids'  => ['required' => FALSE],
+        'list_groups'           => ['required' => FALSE],
+        'status'                => [
             'required' => TRUE,
             'option'   => ['add', 'invite', 'decline', 'maybe', 'request']
         ]

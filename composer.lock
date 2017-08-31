@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "72b07f33b4ca2b2a0b39a6f6c7075c28",
+    "content-hash": "96ebb7b87ab9aca9ed71ec9eea8fe67a",
     "packages": [
         {
             "name": "jtsternberg/shortcode-button",
@@ -163,7 +163,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.3"
+        "php": ">=5.4"
     },
     "platform-dev": []
 }
