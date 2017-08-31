@@ -452,7 +452,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
 
                         if (empty($items))
                         {
-//                            unset($this->gform_form['fields'][$index]);
+                            unset($this->gform_form['fields'][$index]);
                         }
                         else
                         {
@@ -485,7 +485,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
 
                         if (empty($items))
                         {
-//                            unset($this->gform_form['fields'][$index]);
+                            unset($this->gform_form['fields'][$index]);
                         }
                         else
                         {
