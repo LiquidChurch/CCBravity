@@ -79,11 +79,11 @@ class CCB_GRAVITY_api_sync_ccb
         /**
          * adding existing family / group members to event
          */
-        if ( ! empty($this->api_data['primary']['extra_individual_ids']))
+        if ( ! empty($this->api_data['primary']['family_individual_ids']) && is_array($this->api_data['primary']['family_individual_ids']))
         {
-            foreach ($this->api_data['primary']['extra_individual_ids'] as $index => $extra_individual_id)
+            foreach ($this->api_data['primary']['family_individual_ids'] as $index => $extra_individual_id)
             {
-                $this->_sync_gform_data_add_to_event('family|group', $extra_individual_id);
+                $this->_sync_gform_data_add_to_event('family_individual', $extra_individual_id);
             }
         }
 
@@ -177,9 +177,9 @@ class CCB_GRAVITY_api_sync_ccb
             $synced   = isset($secondary_data['individual'][$index]['api_sync']['add_to_event']['success']) && ($secondary_data['individual'][$index]['api_sync']['add_to_event']['success'] == TRUE);
             $api_data = array_merge($primary_data, ['event_individual_id' => $secondary_data['individual'][$index]['event_individual_id']]);
         }
-        else if ($member_type == 'family|group')
+        else if ($member_type == 'family_individual')
         {
-            $synced   = isset($primary_data['family|group'][$index]['api_sync']['add_to_event']['success']) && ($primary_data['family|group'][$index]['api_sync']['add_to_event']['success'] == TRUE);
+            $synced   = isset($primary_data['family_individual'][$index]['api_sync']['add_to_event']['success']) && ($primary_data['family_individual'][$index]['api_sync']['add_to_event']['success'] == TRUE);
             $api_data = array_merge($primary_data, ['event_individual_id' => $index]);
         }
 
@@ -204,10 +204,10 @@ class CCB_GRAVITY_api_sync_ccb
                     $this->api_data['secondary'][$index]['api_sync']['add_to_event']['success'] = FALSE;
                     $this->api_data['secondary'][$index]['api_sync']['add_to_event']['error']   = $this->plugin->gravity_api_add_to_event->api_error;
                 }
-                else if ($member_type == 'family|group')
+                else if ($member_type == 'family_individual')
                 {
-                    $this->api_data['primary']['family|group'][$index]['api_sync']['add_to_event']['success'] = FALSE;
-                    $this->api_data['primary']['family|group'][$index]['api_sync']['add_to_event']['error']   = $this->plugin->gravity_api_add_to_event->api_error;
+                    $this->api_data['primary']['family_individual'][$index]['api_sync']['add_to_event']['success'] = FALSE;
+                    $this->api_data['primary']['family_individual'][$index]['api_sync']['add_to_event']['error']   = $this->plugin->gravity_api_add_to_event->api_error;
                 }
 
                 $this->api_error = $this->send_response_after_single_api_call_fail($this->plugin->gravity_api_add_to_event->api_error);
@@ -222,9 +222,9 @@ class CCB_GRAVITY_api_sync_ccb
                 {
                     $this->api_data['secondary'][$index]['api_sync']['add_to_event']['success'] = TRUE;
                 }
-                else if ($member_type == 'family|group')
+                else if ($member_type == 'family_individual')
                 {
-                    $this->api_data['primary']['family|group'][$index]['api_sync']['add_to_event']['success'] = TRUE;
+                    $this->api_data['primary']['family_individual'][$index]['api_sync']['add_to_event']['success'] = TRUE;
                 }
             }
         }
@@ -237,7 +237,7 @@ class CCB_GRAVITY_api_sync_ccb
      */
     public function _sync_gform_data_add_to_group($member_type = 'primary', $index = 0)
     {
-        $primary_data = isset($this->api_data['primary']) ? $this->api_data['primary'] : array();
+        $primary_data   = isset($this->api_data['primary']) ? $this->api_data['primary'] : array();
         $secondary_data = isset($this->api_data['secondary']) ? $this->api_data['secondary'] : array();
 
         if ($member_type == 'primary')
@@ -251,7 +251,7 @@ class CCB_GRAVITY_api_sync_ccb
             $api_data = array_merge($primary_data, ['event_individual_id' => $secondary_data['individual'][$index]['group_individual_id']]);
         }
 
-        if ( ! empty($primary_data['group_id']) && !$synced)
+        if ( ! empty($primary_data['group_id']) && ! $synced)
         {
 
             /**

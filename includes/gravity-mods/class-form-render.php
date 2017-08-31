@@ -1115,7 +1115,7 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
                         $ids[] = rgar($entry, $input['id']);
                     }
                 }
-                $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('family_individual_ids' => json_encode($ids)));
+                $api_data['primary'] = $this->arr_check_empty_merge($api_data['primary'], array('family_individual_ids' => $ids));
             }
 
 

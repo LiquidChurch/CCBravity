@@ -93,7 +93,7 @@ class CCB_GRAVITY_ajax_handler extends CCB_GRAVITY_Abstract
         {
             $api_events['individual_only'] = TRUE;
         }
-        else if ($primary_data['register_type'] == 'family')
+        else if ($primary_data['register_type'] == 'family' || !empty($primary_data['family_individual_ids']))
         {
             $api_events['individual_family'] = TRUE;
         }
