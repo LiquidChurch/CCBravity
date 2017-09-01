@@ -27,6 +27,7 @@ class ComposerStaticInit4131e8113a43a2558c0c90266e75f9ce
         'CCB_GRAVITY_api_event_profile' => __DIR__ . '/../..' . '/includes/api/class-api-event-profile.php',
         'CCB_GRAVITY_api_get_individual_profile' => __DIR__ . '/../..' . '/includes/api/class-api-get-individual-profile.php',
         'CCB_GRAVITY_api_group_participants' => __DIR__ . '/../..' . '/includes/api/class-api-group-participant.php',
+        'CCB_GRAVITY_api_group_profile_from_id' => __DIR__ . '/../..' . '/includes/api/class-api-group-profile-from-id.php',
         'CCB_GRAVITY_api_individual_groups' => __DIR__ . '/../..' . '/includes/api/class-api-individual-groups.php',
         'CCB_GRAVITY_api_login' => __DIR__ . '/../..' . '/includes/api/class-api-login.php',
         'CCB_GRAVITY_api_main' => __DIR__ . '/../..' . '/includes/api/class-api-main.php',

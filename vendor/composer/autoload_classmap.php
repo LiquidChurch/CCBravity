@@ -20,6 +20,7 @@ return array(
     'CCB_GRAVITY_api_event_profile' => $baseDir . '/includes/api/class-api-event-profile.php',
     'CCB_GRAVITY_api_get_individual_profile' => $baseDir . '/includes/api/class-api-get-individual-profile.php',
     'CCB_GRAVITY_api_group_participants' => $baseDir . '/includes/api/class-api-group-participant.php',
+    'CCB_GRAVITY_api_group_profile_from_id' => $baseDir . '/includes/api/class-api-group-profile-from-id.php',
     'CCB_GRAVITY_api_individual_groups' => $baseDir . '/includes/api/class-api-individual-groups.php',
     'CCB_GRAVITY_api_login' => $baseDir . '/includes/api/class-api-login.php',
     'CCB_GRAVITY_api_main' => $baseDir . '/includes/api/class-api-main.php',

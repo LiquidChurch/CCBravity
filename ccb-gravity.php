@@ -354,6 +354,7 @@ class CCB_GRAVITY_Functionality
         $this->gravity_api_get_individual_profile  = new CCB_GRAVITY_api_get_individual_profile($this);
         $this->gravity_api_get_event_profile       = new CCB_GRAVITY_api_event_profile($this);
         $this->gravity_api_get_attendance_profile  = new CCB_GRAVITY_api_attendance_profile($this);
+        $this->gravity_api_group_profile_from_id  = new CCB_GRAVITY_api_group_profile_from_id($this);
     }
 
 

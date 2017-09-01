@@ -794,6 +794,8 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
         else
         {
             $this->_get_individual_groups();
+            $this->_get_group_details();
+
         }
 
         return $validation;
@@ -839,6 +841,100 @@ class CCB_GRAVITY_form_render extends CCB_GRAVITY_Abstract
         }
 
         $this->plugin->gravity_api_individual_groups->gform_api_map();
+    }
+
+    /**
+     * get group details
+     *
+     * @return bool
+     */
+    protected function _get_group_details()
+    {
+        if ( ! CCB_GRAVITY_manage_session::if_user_logged_in())
+        {
+            wp_redirect($this->referrer_url);
+            exit();
+        }
+
+        if (empty($_SESSION['ccb_plugin']['user_groups']['group']))
+        {
+            return FALSE;
+        }
+
+        $user_group_leads  = [];
+        $group_participant = [];
+
+        delete_transient('ccb_user_group_leads_' . $_SESSION['ccb_plugin']['user_profile']['individual.id']);
+        $user_group_leads = get_transient('ccb_user_group_leads_' . $_SESSION['ccb_plugin']['user_profile']['individual.id']);
+
+        if ( ! empty($user_group_leads))
+        {
+            foreach ($user_group_leads as $index => $user_group_lead)
+            {
+                $group_participant[$user_group_lead] = get_transient('ccb_group_participant_' . $user_group_lead);
+            }
+        }
+        else
+        {
+            foreach ($_SESSION['ccb_plugin']['user_groups']['group'] as $index => $user_group)
+            {
+                $is_group_leader = FALSE;
+
+                if ($user_group['group_id'] == '1')
+                {
+                    continue;
+                }
+
+                $this->plugin->gravity_api_group_profile_from_id->gform_api_map($user_group['group_id']);
+
+                if (empty($this->plugin->gravity_api_group_profile_from_id->api_error))
+                {
+                    $group_response = $this->plugin->gravity_api_group_profile_from_id->api_response_arr['ccb_api']['response'];
+
+                    if ( ! empty($group_response['groups']['group']))
+                    {
+                        if ($_SESSION['ccb_plugin']['user_profile']['individual.id'] == $group_response['groups']['group']['main_leader']['id'])
+                        {
+                            $user_group_leads[] = $user_group['group_id'];
+                            $is_group_leader    = TRUE;
+                        }
+
+                        if ( ! empty($group_response['groups']['group']['leaders']))
+                        {
+                            foreach ($group_response['groups']['group']['leaders'] as $index => $leader)
+                            {
+                                if ($_SESSION['ccb_plugin']['user_profile']['individual.id'] == $leader['id'])
+                                {
+                                    $user_group_leads[] = $user_group['group_id'];
+                                    $is_group_leader    = TRUE;
+                                }
+                            }
+                        }
+
+                        if ($is_group_leader)
+                        {
+                            foreach ($group_response['groups']['group']['participants'] as $index => $participant)
+                            {
+                                if ($_SESSION['ccb_plugin']['user_profile']['individual.id'] == $participant['id'])
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    $group_participant[$user_group['group_id']][] = $participant;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            set_transient('ccb_user_group_leads_' . $_SESSION['ccb_plugin']['user_profile']['individual.id'], empty($user_group_leads) ? [] : $user_group_leads, 3600);
+            set_transient('ccb_group_participant_' . $user_group['group_id'], empty($group_participant) ? [] : $group_participant, 3600);
+        }
+
+        $_SESSION['ccb_plugin']['user_group_leads']       = empty($user_group_leads) ? [] : $user_group_leads;
+        $_SESSION['ccb_plugin']['user_group_participant'] = empty($group_participant) ? [] : $group_participant;
     }
 
     /**
